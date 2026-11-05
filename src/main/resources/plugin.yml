@@ -1,0 +1,31 @@
+name: ServerCoreX
+version: '1.0-SNAPSHOT'
+main: de.main.serverCoreX.ServerCoreX
+api-version: '1.21'
+commands:
+  fly:
+    usage: fly
+    description: "Use it to fly around your Server"
+  gm:
+    usage: gm
+    description: "Use it to change the gamemode of an player"
+  tpa:
+    usage: tpa
+    description: "Use it to change the gamemode of an player"
+  tpyes:
+    usage: tpyes
+    description: "Use it to change the gamemode of an player"
+
+permissions:
+  serverrestart.use:
+    default: op
+  heal.use:
+    default: op
+  fly.use:
+    default: op
+  gamemode.use:
+    default: op
+  gamemode.others:
+    default: op
+
+

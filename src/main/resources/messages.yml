@@ -1,0 +1,6 @@
+messages:
+  prefix: "§6§lBLOCKHIVE §7» "
+  fly_enabled: "Flugmodus wurde erfolgreich §aaktiviert!"
+  fly_disabled: "Flugmodus wurde erfolgreich §cdeaktiviert!"
+  missing_permission: "§cDu hast dazu keine Berechtigung!"
+  command_does_not_exist: "§cDiesen Befehl gibt es nicht! (Nutze /help)"
