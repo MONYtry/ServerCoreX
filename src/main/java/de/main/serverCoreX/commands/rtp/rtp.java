@@ -1,13 +1,10 @@
 package de.main.serverCoreX.commands.rtp;
 
 import org.bukkit.*;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -128,6 +125,8 @@ public class rtp {
                         finalLoc.clone().add(x,-1,z).getBlock().setType(Material.STONE);
                     }
                 }
+                rtpCleanupManager.registerRtpSpot(finalLoc);
+
                 // Spawnt Boat
                 world.spawnEntity(boatLoc, EntityType.BIRCH_BOAT);
                 sendPlayerMessage(p,"§cKein sicherer Spot gefunden!");
