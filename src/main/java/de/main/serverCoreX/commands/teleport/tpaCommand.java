@@ -45,6 +45,12 @@ public class tpaCommand implements CommandExecutor {
                 return true;
             }
 
+            if (partner.getName().equalsIgnoreCase(p.getName()))
+            {
+                sendPlayerMessage(p,"§7Du kannst dich nicht selbst §7teleportieren!");
+                return true;
+            }
+
             teleportRequests.put(partner.getUniqueId(), p.getUniqueId());
             teleportHere.put(partner.getUniqueId(),false);
 

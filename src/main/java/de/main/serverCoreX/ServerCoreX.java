@@ -10,11 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.File;
-
-import static de.main.serverCoreX.commands.discord.sendGlobalDiscordMessage;
-import static de.main.serverCoreX.helper.timer.repeat;
+import static de.main.serverCoreX.BroadcastManager.startMessages;
 
 public final class ServerCoreX extends JavaPlugin {
 
@@ -45,11 +42,7 @@ public final class ServerCoreX extends JavaPlugin {
         messages = YamlConfiguration.loadConfiguration(new File(getDataFolder(),"messages.yml"));
         getLogger().info("Erfolgreich geladen!");
 
-        repeat(() -> {
-                    Bukkit.getLogger().info("Discord Timer ausgeführt!");
-                    sendGlobalDiscordMessage();
-        },20L * 60
-        );
+        startMessages();
     }
 
     @Override

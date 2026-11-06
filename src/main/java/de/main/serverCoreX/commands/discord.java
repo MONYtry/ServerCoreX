@@ -44,28 +44,4 @@ public class discord implements CommandExecutor {
 
         return true;
     }
-
-    public static void sendGlobalDiscordMessage()
-    {
-        TextComponent empty = new TextComponent(getPrefix() + "");
-        TextComponent line = new TextComponent(getPrefix() + "§8§l━━━━━━━━━━━━━━━━━━━━━━━━");
-
-        // Anzeige Nachricht
-        TextComponent message = new TextComponent(getPrefix() +" §7Klicke §bhier§7 um zu §bDiscord §7zu gelangen!");
-
-        // Click-Event
-        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/MONYtry"));
-
-        // Hover-Message
-        message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§eKlicke zum Annehmen!").create()));
-
-        Bukkit.broadcast(line);
-        Bukkit.broadcast(empty);
-
-        // Sendet Nachricht über Spigot
-        Bukkit.broadcast(message);
-
-        Bukkit.broadcast(empty);
-        Bukkit.broadcast(line);
-    }
 }
