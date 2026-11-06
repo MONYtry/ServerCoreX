@@ -12,6 +12,7 @@ public class messages {
     {
         p.sendMessage(getPrefix() + message);
     }
+
     public static FileConfiguration getMessages()
     {
        return JavaPlugin.getPlugin(ServerCoreX.class).messages;

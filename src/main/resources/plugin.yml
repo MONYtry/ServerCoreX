@@ -30,6 +30,18 @@ commands:
     description: "Use it to change the gamemode of an player"
     aliases:
       - dc
+  spawn:
+    usage: spawn
+    description: "Use it to change the gamemode of an player"
+  setspawn:
+    usage: setspawn
+    description: "Setzt den Spawn"
+  delspawn:
+    usage: delspawn
+    description: "Setzt den Spawn"
+  reload:
+    usage: reload
+    description: "Läd das Plugin inkl. Konfiguration neu!"
 
 permissions:
   serverrestart.use:
