@@ -1,36 +1,52 @@
 package de.main.serverCoreX.commands.teleport;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import static de.main.serverCoreX.commands.teleport.SendCommand.teleportPartners;
+
+import java.util.UUID;
+
+import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
 public class AcceptCommand implements CommandExecutor {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
-        if (!command.getName().equalsIgnoreCase("tpyes"))
-            return true;
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (!(sender instanceof Player player))
             return true;
 
-        if (!teleportPartners.containsKey(player.getUniqueId()))
-        {
-            player.sendMessage("Du hast keine offenen Teleportations-Anfragen!");
+        UUID uuid = player.getUniqueId();
+
+        if (!TeleportManager.teleportRequests.containsKey(uuid)) {
+            sendPlayerMessage(player, "§7Du hast keine offenen §eTeleportations-Anfragen!");
             return true;
         }
-        Player partner = Bukkit.getPlayer(teleportPartners.get(player.getUniqueId()));
+
+        Player partner = Bukkit.getPlayer(TeleportManager.teleportRequests.get(uuid));
+
         if (partner == null)
         {
-            player.sendMessage("Der Spieler ist nicht Online oder konnte nicht gefunden werden");
+            sendPlayerMessage(player, "§7Der Spieler ist nicht online!");
+            TeleportManager.teleportRequests.remove(uuid);
+            TeleportManager.teleportHere.remove(uuid);
             return true;
         }
-        player.teleport(partner);
-        teleportPartners.remove(player.getUniqueId());
+
+        boolean here = TeleportManager.teleportHere.getOrDefault(uuid, false);
+
+        if (here)
+            player.teleport(partner);
+        else
+            partner.teleport(player);
+
+        sendPlayerMessage(player, "§7Teleportations-Anfrage angenommen!");
+        sendPlayerMessage(partner, "§7Deine Anfrage wurde angenommen!");
+
+        TeleportManager.teleportRequests.remove(uuid);
+        TeleportManager.teleportHere.remove(uuid);
+
         return true;
     }
 }

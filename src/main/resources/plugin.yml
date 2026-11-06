@@ -9,12 +9,27 @@ commands:
   gm:
     usage: gm
     description: "Use it to change the gamemode of an player"
+    aliases:
+      - gamemode
   tpa:
     usage: tpa
     description: "Use it to change the gamemode of an player"
   tpyes:
     usage: tpyes
     description: "Use it to change the gamemode of an player"
+    aliases:
+      - tpaccept
+  tp:
+    usage: tp
+    description: "Use it to change the gamemode of an player"
+  tphere:
+    usage: tphere
+    description: "Use it to change the gamemode of an player"
+  discord:
+    usage: discord
+    description: "Use it to change the gamemode of an player"
+    aliases:
+      - dc
 
 permissions:
   serverrestart.use:

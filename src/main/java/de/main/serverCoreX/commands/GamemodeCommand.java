@@ -66,6 +66,18 @@ public class GamemodeCommand implements CommandExecutor {
                 if (!target.equals(p)) p.sendMessage("§aDu hast " + target.getName() + " in den Überlebensmodus gesetzt!");
                 break;
 
+            case "2":
+                target.setGameMode(GameMode.ADVENTURE);
+                sendPlayerMessage(target,"§7Du bist erfolgreich im §eAbenteuermodus!");
+                if (!target.equals(p)) p.sendMessage("§aDu hast " + target.getName() + " in den §eAbenteuermodus gesetzt!");
+                break;
+
+            case "3":
+                target.setGameMode(GameMode.SPECTATOR);
+                sendPlayerMessage(target,"§7Du bist erfolgreich im §eBeobachtungsmodus!");
+                if (!target.equals(p)) p.sendMessage("§aDu hast " + target.getName() + " in den Beobachtungsmodus gesetzt!");
+                break;
+
             default:
                 sendPlayerMessage(p,"§cBitte nutze /gm (0,1,2,3)");
                 break;

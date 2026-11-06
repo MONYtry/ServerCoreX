@@ -1,17 +1,20 @@
 package de.main.serverCoreX;
 
-import de.main.serverCoreX.commands.FlyCommand;
-import de.main.serverCoreX.commands.GamemodeCommand;
-import de.main.serverCoreX.commands.HealCommand;
-import de.main.serverCoreX.commands.RestartCommand;
+import de.main.serverCoreX.commands.*;
 import de.main.serverCoreX.commands.teleport.AcceptCommand;
-import de.main.serverCoreX.commands.teleport.SendCommand;
+import de.main.serverCoreX.commands.teleport.tpCommand;
+import de.main.serverCoreX.commands.teleport.tpaCommand;
+import de.main.serverCoreX.commands.teleport.tphereCommand;
+import de.main.serverCoreX.joinLeave.joinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+
+import static de.main.serverCoreX.commands.discord.sendGlobalDiscordMessage;
+import static de.main.serverCoreX.helper.timer.repeat;
 
 public final class ServerCoreX extends JavaPlugin {
 
@@ -27,16 +30,26 @@ public final class ServerCoreX extends JavaPlugin {
         saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(new RestartCommand(),this);
         Bukkit.getPluginManager().registerEvents(new HealCommand(),this);
+        Bukkit.getPluginManager().registerEvents(new joinListener(),this);
 
         getCommand("fly").setExecutor(new FlyCommand());
         getCommand("gm").setExecutor(new GamemodeCommand());
-        getCommand("tpa").setExecutor(new SendCommand());
+        getCommand("tpa").setExecutor(new tpaCommand());
         getCommand("tpyes").setExecutor(new AcceptCommand());
+        getCommand("tp").setExecutor(new tpCommand());
+        getCommand("tphere").setExecutor(new tphereCommand());
+        getCommand("discord").setExecutor(new discord());
 
         saveResource("messages.yml",false);
 
         messages = YamlConfiguration.loadConfiguration(new File(getDataFolder(),"messages.yml"));
         getLogger().info("Erfolgreich geladen!");
+
+        repeat(() -> {
+                    Bukkit.getLogger().info("Discord Timer ausgeführt!");
+                    sendGlobalDiscordMessage();
+        },20L * 60
+        );
     }
 
     @Override

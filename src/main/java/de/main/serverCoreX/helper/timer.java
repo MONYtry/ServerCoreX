@@ -16,4 +16,14 @@ public class timer {
                 ticks
         );
     }
+
+    public static void repeat(Runnable task, long ticks)
+    {
+        Bukkit.getScheduler().runTaskTimer(
+                ServerCoreX.getInstance(),
+                task,
+                ticks,
+                ticks
+        );
+    }
 }
