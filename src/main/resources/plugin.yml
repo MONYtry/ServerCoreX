@@ -6,6 +6,7 @@ commands:
   fly:
     usage: fly
     description: "Use it to fly around your Server"
+
   gm:
     usage: gm
     description: "Use it to change the gamemode of an player"
@@ -14,40 +15,57 @@ commands:
   tpa:
     usage: tpa
     description: "Use it to change the gamemode of an player"
+
   tpyes:
     usage: tpyes
     description: "Use it to change the gamemode of an player"
     aliases:
       - tpaccept
+
   tp:
     usage: tp
     description: "Use it to change the gamemode of an player"
+
   tphere:
     usage: tphere
     description: "Use it to change the gamemode of an player"
+
   discord:
     usage: discord
     description: "Use it to change the gamemode of an player"
     aliases:
       - dc
+
   spawn:
     usage: spawn
     description: "Use it to change the gamemode of an player"
+
   setspawn:
     usage: setspawn
     description: "Setzt den Spawn"
+
   delspawn:
     usage: delspawn
     description: "Setzt den Spawn"
+
   reload:
     usage: reload
     description: "Läd das Plugin inkl. Konfiguration neu!"
+
   setweather:
     usage: setweather
     description: "Ändert das Wetter"
+
   settime:
     usage: settime
     description: "Setzt die Uhrzeit"
+
+  rtp:
+    usage: rtp
+    description: "Setzt die Uhrzeit"
+    aliases:
+      - farmwelt
+      - randomteleport
 
 permissions:
   serverrestart.use:

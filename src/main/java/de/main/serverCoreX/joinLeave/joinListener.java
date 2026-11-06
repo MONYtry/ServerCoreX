@@ -24,6 +24,7 @@ public class joinListener implements Listener {
         p.playSound(playerLocation, Sound.ENTITY_FIREWORK_ROCKET_TWINKLE_FAR,1,1);
 
         p.sendTitle("§f§lWillkommen auf", "§6BLOCKHIVE.NET");
+        p.performCommand("spawn");
     }
 
     @EventHandler

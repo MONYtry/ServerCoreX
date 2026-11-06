@@ -1,6 +1,8 @@
     package de.main.serverCoreX;
 
     import de.main.serverCoreX.commands.*;
+    import de.main.serverCoreX.commands.rtp.rtpCommand;
+    import de.main.serverCoreX.commands.rtp.rtpListener;
     import de.main.serverCoreX.commands.spawn.delSpawn;
     import de.main.serverCoreX.commands.spawn.setSpawn;
     import de.main.serverCoreX.commands.spawn.spawn;
@@ -25,8 +27,10 @@
         public static ServerCoreX instance;
         public FileConfiguration messages;
         public FileConfiguration locations;
+        public FileConfiguration gui;
         public File locationsFile;
         public File messagesFile;
+        public File guiFile;
 
 
         @Override
@@ -38,6 +42,7 @@
             Bukkit.getPluginManager().registerEvents(new RestartCommand(),this);
             Bukkit.getPluginManager().registerEvents(new HealCommand(),this);
             Bukkit.getPluginManager().registerEvents(new joinListener(),this);
+            Bukkit.getPluginManager().registerEvents(new rtpListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("gm").setExecutor(new GamemodeCommand());
@@ -59,13 +64,18 @@
             getCommand("setspawn").setExecutor(new setSpawn());
             getCommand("spawn").setExecutor(new spawn());
             getCommand("delspawn").setExecutor(new delSpawn());
+            getCommand("rtp").setExecutor(new rtpCommand());
 
             getCommand("reload").setExecutor(new reloadCommand());
 
             saveResource("messages.yml",false);
+            saveResource("gui.yml", false);
 
             messagesFile = new File(getDataFolder(), "messages.yml");
             messages = YamlConfiguration.loadConfiguration(messagesFile);
+
+            guiFile = new File(getDataFolder(), "gui.yml");
+            gui = YamlConfiguration.loadConfiguration(guiFile);
 
             locationsFile = new File(getDataFolder(), "locations.yml");
             locations = YamlConfiguration.loadConfiguration(locationsFile);
@@ -87,16 +97,8 @@
             return instance;
         }
 
-        public void saveMessages()
-        {
-            try {
-                messages.save(messagesFile);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
+
+
 
         public void saveLocations() {
             try {
@@ -109,7 +111,6 @@
         public void saveAll()
         {
             // Speicherung von Datein
-            saveMessages();
             saveLocations();
         }
 
@@ -118,5 +119,6 @@
             // Reload von Datein
             messages = YamlConfiguration.loadConfiguration(messagesFile);
             locations = YamlConfiguration.loadConfiguration(locationsFile);
+            gui = YamlConfiguration.loadConfiguration(guiFile);
         }
     }
