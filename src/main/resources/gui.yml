@@ -1,0 +1,17 @@
+items:
+  settings:
+    material: COMPASS
+    slot: 0
+    name: "&aFarmwelt"
+    lore:
+      - "&7Klicke hier, um in"
+      - "&7die Farmwelt zu gelangen."
+    action: "rtp_overworld"
+
+  close:
+    material: BARRIER
+    slot: 22
+    name: "&c&lSchließen"
+    lore:
+      - "&7Schließt dieses Menü."
+    action: "close"

@@ -3,6 +3,7 @@
     import de.main.serverCoreX.commands.*;
     import de.main.serverCoreX.commands.rtp.rtpCommand;
     import de.main.serverCoreX.commands.rtp.rtpListener;
+    import de.main.serverCoreX.commands.rtp.spawnProtection;
     import de.main.serverCoreX.commands.spawn.delSpawn;
     import de.main.serverCoreX.commands.spawn.setSpawn;
     import de.main.serverCoreX.commands.spawn.spawn;
@@ -43,6 +44,7 @@
             Bukkit.getPluginManager().registerEvents(new HealCommand(),this);
             Bukkit.getPluginManager().registerEvents(new joinListener(),this);
             Bukkit.getPluginManager().registerEvents(new rtpListener(),this);
+            Bukkit.getPluginManager().registerEvents(new spawnProtection(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("gm").setExecutor(new GamemodeCommand());

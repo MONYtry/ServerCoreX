@@ -26,4 +26,14 @@ public class timer {
                 ticks
         );
     }
+
+
+    public static int rtpScheduler(Runnable task, long ticks)
+    {
+        return Bukkit.getScheduler().runTaskTimer(ServerCoreX.getInstance(),
+                task,
+                ticks,
+                ticks).getTaskId();
+    }
+
 }
