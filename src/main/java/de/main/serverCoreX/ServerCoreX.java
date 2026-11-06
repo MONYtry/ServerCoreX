@@ -43,6 +43,14 @@
             getCommand("gm").setExecutor(new GamemodeCommand());
             getCommand("discord").setExecutor(new discord());
 
+            weather weatherCommand = new weather();
+            getCommand("setweather").setExecutor(weatherCommand);
+            getCommand("setweather").setTabCompleter(weatherCommand);
+
+            time timeCommand = new time();
+            getCommand("settime").setExecutor(timeCommand);
+            getCommand("settime").setTabCompleter(timeCommand);
+
             getCommand("tpa").setExecutor(new tpaCommand());
             getCommand("tpyes").setExecutor(new AcceptCommand());
             getCommand("tp").setExecutor(new tpCommand());

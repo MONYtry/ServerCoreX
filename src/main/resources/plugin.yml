@@ -42,6 +42,12 @@ commands:
   reload:
     usage: reload
     description: "Läd das Plugin inkl. Konfiguration neu!"
+  setweather:
+    usage: setweather
+    description: "Ändert das Wetter"
+  settime:
+    usage: settime
+    description: "Setzt die Uhrzeit"
 
 permissions:
   serverrestart.use:
