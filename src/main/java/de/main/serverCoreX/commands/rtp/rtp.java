@@ -19,7 +19,6 @@ public class rtp {
     static {
         unsafeBlocks.add(Material.WATER);
         unsafeBlocks.add(Material.LAVA);
-        unsafeBlocks.add(Material.AIR);
     }
 
     public static void handleRTP(Player p)
@@ -111,7 +110,8 @@ public class rtp {
         world.getChunkAtAsync(rawLoc).thenAccept(chunk ->
         {
             int highestBlockYAt = world.getHighestBlockYAt(rawLoc);
-            Location finalLoc = new Location(p.getWorld(),randomX +0.5,highestBlockYAt + 1,randomZ +0.5);
+            Location finalLoc = new Location(p.getWorld(),randomX,highestBlockYAt,randomZ +0.5);
+            Location playerLoc = new Location(p.getWorld(),randomX + 0.5,highestBlockYAt + 1,randomZ +0.5);
             Location boatLoc = new Location(world,randomX + 3, highestBlockYAt + 1, randomZ +0.5);
 
             // Falls Block nicht sicher ist
@@ -122,7 +122,7 @@ public class rtp {
                 {
                     for (int z = -1; z <= 1; z++)
                     {
-                        finalLoc.clone().add(x,-1,z).getBlock().setType(Material.STONE);
+                        finalLoc.clone().add(x,0,z).getBlock().setType(Material.STONE);
                     }
                 }
                 rtpCleanupManager.registerRtpSpot(finalLoc);
@@ -132,7 +132,7 @@ public class rtp {
                 sendPlayerMessage(p,"§cKein sicherer Spot gefunden!");
             }
 
-            p.teleport(finalLoc);
+            p.teleport(playerLoc);
             sendPlayerMessage(p,"§7Du wurdest §eteleportiert");
             p.sendMessage("Godmode wurde aktiviert!");
             p.setInvulnerable(true);
