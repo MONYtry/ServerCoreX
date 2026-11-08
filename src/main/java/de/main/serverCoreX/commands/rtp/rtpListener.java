@@ -2,6 +2,7 @@ package de.main.serverCoreX.commands.rtp;
 
 import de.main.serverCoreX.ServerCoreX;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,10 +47,12 @@ public class rtpListener implements Listener {
                 handleRTP(p);
                 break;
 
-            case "rtp_nether":
+            case "close":
                 // RTP in overworld
-                handleRTP(p);
+                p.closeInventory();
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL,1,1);
                 break;
+
 
         }
     }

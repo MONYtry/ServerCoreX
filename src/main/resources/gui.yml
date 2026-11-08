@@ -1,12 +1,30 @@
 items:
-  settings:
-    material: COMPASS
+  farmwelt:
+    material: GRASS_BLOCK
     slot: 0
     name: "&aFarmwelt"
     lore:
       - "&7Klicke hier, um in"
       - "&7die Farmwelt zu gelangen."
     action: "rtp_overworld"
+
+  nether:
+    material: GRASS_BLOCK
+    slot: 0
+    name: "&cNether"
+    lore:
+      - "&7Klicke hier, um in"
+      - "&7die Farmwelt zu gelangen."
+    action: "rtp_nether"
+
+  end:
+    material: GRASS_BLOCK
+    slot: 0
+    name: "&dEnd"
+    lore:
+      - "&7Klicke hier, um in"
+      - "&7die Farmwelt zu gelangen."
+    action: "rtp_end"
 
   close:
     material: BARRIER
