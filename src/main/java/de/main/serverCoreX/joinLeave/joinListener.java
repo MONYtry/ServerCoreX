@@ -1,5 +1,6 @@
 package de.main.serverCoreX.joinLeave;
 
+import de.main.serverCoreX.scoreboard.ScoardboardManager;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -7,8 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import static de.main.serverCoreX.helper.messages.getPrefix;
+import static de.main.serverCoreX.kit.kit.giveKit;
 
 public class joinListener implements Listener {
 
@@ -25,6 +28,9 @@ public class joinListener implements Listener {
 
         p.sendTitle("§f§lWillkommen auf", "§6BLOCKHIVE.NET");
         p.performCommand("spawn");
+
+        ScoardboardManager.createScoreboard(p);
+        giveKit(p);
     }
 
     @EventHandler

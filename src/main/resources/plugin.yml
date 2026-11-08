@@ -2,6 +2,7 @@ name: ServerCoreX
 version: '1.0-SNAPSHOT'
 main: de.main.serverCoreX.ServerCoreX
 api-version: '1.21'
+depend: [PlaceholderAPI]
 commands:
   fly:
     usage: fly

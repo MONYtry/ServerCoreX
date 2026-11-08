@@ -16,12 +16,10 @@
     import org.bukkit.configuration.file.FileConfiguration;
     import org.bukkit.configuration.file.YamlConfiguration;
     import org.bukkit.plugin.java.JavaPlugin;
-    import org.yaml.snakeyaml.constructor.SafeConstructor;
-
     import java.io.File;
     import java.io.IOException;
-
     import static de.main.serverCoreX.BroadcastManager.startMessages;
+    import static de.main.serverCoreX.scoreboard.ScoardboardManager.update;
 
     public final class ServerCoreX extends JavaPlugin {
 
@@ -32,6 +30,12 @@
         public File locationsFile;
         public File messagesFile;
         public File guiFile;
+
+        public File starterKitConfigFile;
+        public FileConfiguration startKitConfig;
+
+        public File kitPlayerDataFile;
+        public FileConfiguration kitPlayerData;
 
 
         @Override
@@ -72,9 +76,17 @@
 
             saveResource("messages.yml",false);
             saveResource("gui.yml", false);
+            saveResource("starterkit.yml", false);
+            saveResource("playerKitData.yml", false);
 
             messagesFile = new File(getDataFolder(), "messages.yml");
             messages = YamlConfiguration.loadConfiguration(messagesFile);
+
+            kitPlayerDataFile = new File(getDataFolder(), "playerKitData.yml");
+            kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
+
+            starterKitConfigFile = new File(getDataFolder(), "starterkit.yml");
+            startKitConfig = YamlConfiguration.loadConfiguration(starterKitConfigFile);
 
             guiFile = new File(getDataFolder(), "gui.yml");
             gui = YamlConfiguration.loadConfiguration(guiFile);
@@ -86,6 +98,9 @@
 
             // Startet das senden der automatisierten Nachrichten!
             startMessages();
+
+            // Updated das Scoardboard
+            update();
         }
 
         @Override
@@ -122,5 +137,12 @@
             messages = YamlConfiguration.loadConfiguration(messagesFile);
             locations = YamlConfiguration.loadConfiguration(locationsFile);
             gui = YamlConfiguration.loadConfiguration(guiFile);
+            startKitConfig = YamlConfiguration.loadConfiguration(starterKitConfigFile);
+            kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
+        }
+
+        public File getKitPlayerDataFile()
+        {
+            return kitPlayerDataFile;
         }
     }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 import static de.main.serverCoreX.commands.rtp.rtpManager.*;
+import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 import static de.main.serverCoreX.helper.timer.delay;
 import static de.main.serverCoreX.helper.timer.rtpScheduler;
@@ -88,7 +89,7 @@ public class rtp {
                 p.sendTitle("§6§lRTP", "§fDu wirst als Nächstes teleportiert!", 10, 40, 10);
             }
 
-            p.sendActionBar("§fWarte noch §b§l" + getTime(uuid) + "§r§f Sekunden | §b§l" + watingLine + "§r§f Warte-Postition");
+            p.sendActionBar(getPrefix() + "§7Warte noch §9" + getTime(uuid) + "§7 Sekunden | §9" + watingLine + "§7 Warte-Postition");
         },20);
         rtpTask.put(uuid,taskID);
     }
@@ -134,12 +135,12 @@ public class rtp {
 
             p.teleport(playerLoc);
             sendPlayerMessage(p,"§7Du wurdest §eteleportiert");
-            p.sendMessage("Godmode wurde aktiviert!");
+            sendPlayerMessage(p,"§7Du hast wegen dem §7Farmwelt-Teleport §e30 Sekunden Spawn-Schutz.");
             p.setInvulnerable(true);
 
             delay(() -> {
                 p.setInvulnerable(false);
-                p.sendMessage("Godmode deaktiviert!");
+                sendPlayerMessage(p,"§7Dein §eSpawnschutz §7ist nun ausgelaufen. Du erhältst wieder normal §eSchaden!");
             },20L * 30);
 
             p.removePotionEffect(PotionEffectType.BLINDNESS);

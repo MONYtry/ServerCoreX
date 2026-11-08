@@ -10,7 +10,7 @@ items:
 
   nether:
     material: GRASS_BLOCK
-    slot: 0
+    slot: 2
     name: "&cNether"
     lore:
       - "&7Klicke hier, um in"
@@ -19,7 +19,7 @@ items:
 
   end:
     material: GRASS_BLOCK
-    slot: 0
+    slot: 4
     name: "&dEnd"
     lore:
       - "&7Klicke hier, um in"

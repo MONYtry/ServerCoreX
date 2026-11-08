@@ -1,0 +1,25 @@
+items:
+  sword:
+    material: IRON_SWORD
+    amount: 1
+    slot: 0
+    enchantments:
+      - SHARPNESS 5
+      - UNBREAKING 3
+      - FIRE_ASPECT 2
+      - KNOCKBACK 2
+    lore:
+      - "Test123123"
+      - "Test123123"
+  helmet:
+    material: IRON_HELMET
+    amount: 1
+    slot: HELMET
+
+  bread:
+    material: BREAD
+    amount: 32
+
+  stone:
+    material: STONE
+    amount: 16

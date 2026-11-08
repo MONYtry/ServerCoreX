@@ -57,7 +57,7 @@ public class BroadcastManager {
                 if (indexNumber == 3)
                     indexNumber = 0;
 
-            },20L * 60
+            },20L * 60 * 5
             );
     }
 }
