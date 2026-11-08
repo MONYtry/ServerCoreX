@@ -4,3 +4,6 @@ messages:
   fly_disabled: "Flugmodus wurde erfolgreich §cdeaktiviert!"
   missing_permission: "§cDu hast dazu keine Berechtigung!"
   command_does_not_exist: "§cDiesen Befehl gibt es nicht! (Nutze /help)"
+  player_not_online: "§cDieser Spieler ist nicht Online!"
+  reload_succses: "§7Erfolgreich §eNeugeladen!"
+  reload_error: "§7Es ist ein §cFehler aufgetreten, §7schaue in die §eConsole §7für weitere Infos"

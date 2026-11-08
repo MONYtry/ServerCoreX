@@ -3,7 +3,6 @@ package de.main.serverCoreX.commands.rtp;
 import de.main.serverCoreX.ServerCoreX;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,9 +10,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-
 import static de.main.serverCoreX.commands.rtp.rtp.handleRTP;
-import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.messages.getPrefix;
 
 public class rtpListener implements Listener {
 
@@ -21,7 +19,7 @@ public class rtpListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e)
     {
         String titel = e.getView().getTitle();
-        if (!titel.equalsIgnoreCase("§eFarmwelten-Auswahl"))
+        if (!titel.equalsIgnoreCase(getPrefix() + "§eFarmwelten"))
             return;
         e.setCancelled(true);
 
@@ -44,6 +42,8 @@ public class rtpListener implements Listener {
         {
             case "rtp_overworld":
                 // RTP in overworld
+                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE,1,1);
+                p.closeInventory();
                 handleRTP(p);
                 break;
 

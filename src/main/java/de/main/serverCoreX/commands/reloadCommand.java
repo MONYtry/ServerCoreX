@@ -4,9 +4,11 @@ import de.main.serverCoreX.ServerCoreX;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+
+import static de.main.serverCoreX.helper.messages.*;
 
 public class reloadCommand implements CommandExecutor {
     @Override
@@ -16,10 +18,14 @@ public class reloadCommand implements CommandExecutor {
         if (!(sender instanceof Player p))
             return true;
 
+        FileConfiguration file = getMessages();
+
         if (saveAll())
-            sendPlayerMessage(p,"§7Erfolgreich §eNeugeladen!");
+        {
+            sendPlayerMessage(p,file.getString(getPath() + "reload_succses"));
+        }
         else
-            sendPlayerMessage(p,"§7Es ist ein §cFehler aufgetreten, §7schaue in die §eConsole §7für weitere Infos");
+            sendPlayerMessage(p,file.getString(getPath() + "reload_error"));
 
         return true;
     }

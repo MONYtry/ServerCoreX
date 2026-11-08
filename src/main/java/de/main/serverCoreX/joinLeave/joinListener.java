@@ -19,6 +19,9 @@ public class joinListener implements Listener {
     public void onJoin(PlayerJoinEvent e)
     {
         Player p = e.getPlayer();
+        if (!p.hasPlayedBefore())
+            firstJoinManager.addFirstJoin(p);
+
         e.setJoinMessage(getPrefix() + "§e[+] " + p.getName());
 
         Location playerLocation = p.getLocation();

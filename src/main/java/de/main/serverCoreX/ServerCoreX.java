@@ -1,6 +1,7 @@
     package de.main.serverCoreX;
 
     import de.main.serverCoreX.commands.*;
+    import de.main.serverCoreX.commands.rtp.farmworld.farmweltListener;
     import de.main.serverCoreX.commands.rtp.rtpCommand;
     import de.main.serverCoreX.commands.rtp.rtpListener;
     import de.main.serverCoreX.commands.rtp.spawnProtection;
@@ -12,10 +13,14 @@
     import de.main.serverCoreX.commands.teleport.tpaCommand;
     import de.main.serverCoreX.commands.teleport.tphereCommand;
     import de.main.serverCoreX.joinLeave.joinListener;
+    import net.milkbowl.vault.economy.Economy;
     import org.bukkit.Bukkit;
     import org.bukkit.configuration.file.FileConfiguration;
     import org.bukkit.configuration.file.YamlConfiguration;
+    import org.bukkit.plugin.RegisteredServiceProvider;
     import org.bukkit.plugin.java.JavaPlugin;
+    import org.yaml.snakeyaml.constructor.SafeConstructor;
+
     import java.io.File;
     import java.io.IOException;
     import static de.main.serverCoreX.BroadcastManager.startMessages;
@@ -37,18 +42,48 @@
         public File kitPlayerDataFile;
         public FileConfiguration kitPlayerData;
 
+        public File PlayerDataFile;
+        public FileConfiguration PlayerData;
+
+        private static Economy economy;
+
+        private boolean setupEconomy() {
+
+            if (getServer().getPluginManager().getPlugin("Vault") == null) {
+                return false;
+            }
+
+            RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+
+            if (rsp == null) {
+                return false;
+            }
+
+            economy = rsp.getProvider();
+
+            return economy != null;
+        }
+
+        public static Economy getEconomy() {
+            return economy;
+        }
 
         @Override
         public void onEnable()
         {
             instance = this;
-
+            if (!setupEconomy())
+            {
+                getLogger().severe("Vault-Economy konnte nicht geladen werden!");
+                return;
+            }
             saveDefaultConfig();
             Bukkit.getPluginManager().registerEvents(new RestartCommand(),this);
             Bukkit.getPluginManager().registerEvents(new HealCommand(),this);
             Bukkit.getPluginManager().registerEvents(new joinListener(),this);
             Bukkit.getPluginManager().registerEvents(new rtpListener(),this);
             Bukkit.getPluginManager().registerEvents(new spawnProtection(),this);
+            Bukkit.getPluginManager().registerEvents(new farmweltListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("gm").setExecutor(new GamemodeCommand());
@@ -78,12 +113,16 @@
             saveResource("gui.yml", false);
             saveResource("starterkit.yml", false);
             saveResource("playerKitData.yml", false);
+            saveResource("playerData.yml", false);
 
             messagesFile = new File(getDataFolder(), "messages.yml");
             messages = YamlConfiguration.loadConfiguration(messagesFile);
 
             kitPlayerDataFile = new File(getDataFolder(), "playerKitData.yml");
             kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
+
+            PlayerDataFile = new File(getDataFolder(), "playerData.yml");
+            PlayerData = YamlConfiguration.loadConfiguration(PlayerDataFile);
 
             starterKitConfigFile = new File(getDataFolder(), "starterkit.yml");
             startKitConfig = YamlConfiguration.loadConfiguration(starterKitConfigFile);
@@ -139,8 +178,14 @@
             gui = YamlConfiguration.loadConfiguration(guiFile);
             startKitConfig = YamlConfiguration.loadConfiguration(starterKitConfigFile);
             kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
+            PlayerData = YamlConfiguration.loadConfiguration(PlayerDataFile);
+            reloadConfig();
         }
 
+        public File getPlayerDataFile()
+        {
+            return PlayerDataFile;
+        }
         public File getKitPlayerDataFile()
         {
             return kitPlayerDataFile;

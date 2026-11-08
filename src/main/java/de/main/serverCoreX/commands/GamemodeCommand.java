@@ -5,8 +5,11 @@ import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 import static de.main.serverCoreX.helper.messages.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
@@ -46,7 +49,9 @@ public class GamemodeCommand implements CommandExecutor {
             target = Bukkit.getPlayer(args[1]);
 
             if (target == null) {
-                sendPlayerMessage(p,"§cDieser Spieler ist nicht online!");
+                FileConfiguration file = getMessages();
+
+                sendPlayerMessage(p,file.getString(getPath() + "player_not_online"));
                 return true;
             }
         }

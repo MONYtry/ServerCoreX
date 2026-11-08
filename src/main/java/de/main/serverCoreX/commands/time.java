@@ -36,7 +36,7 @@ public class time implements CommandExecutor, TabCompleter {
         World world = p.getWorld();
         if (args.length == 0)
         {
-            p.sendMessage("Zu wenig argumente! (Nutze /weather sun,storm)");
+            sendPlayerMessage(p,"§7Zu wenig §eargumente! §7(Nutze /settime Argument)");
             return true;
         }
 
@@ -65,6 +65,10 @@ public class time implements CommandExecutor, TabCompleter {
             case "midnight":
                 world.setTime(18000L);
                 sendPlayerMessage(p, "§eZeit §7wurde auf §eMitternacht §7gesetzt");
+                break;
+
+            default:
+                sendPlayerMessage(p, "§cArgument §7wurde nicht §cgefunden §7(" + args[0] + ")");
                 break;
         }
         return true;

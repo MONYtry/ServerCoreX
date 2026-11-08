@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class kitManager {
-    public static HashSet<UUID> collectedKit = new HashSet<>();
 
     public static FileConfiguration getConfig()
     {

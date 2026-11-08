@@ -1,10 +1,12 @@
 package de.main.serverCoreX.helper;
 
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import de.main.serverCoreX.ServerCoreX;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.block.EnchantingTable;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -12,8 +14,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
+import java.util.UUID;
 
 public class ItemCreator {
 
@@ -54,11 +58,23 @@ public class ItemCreator {
             }
 
             // Basic Stuff
-            ItemStack item = new ItemStack(material);
+            ItemStack item;
+
+            if (cfg.contains(path + ".texture"))
+            {
+                String texture = cfg.getString(path + ".texture");
+                item = createHead(texture);
+            }
+            else
+                item = new ItemStack(material);
+
             ItemMeta meta = item.getItemMeta();
 
-            meta.setDisplayName(name);
-            meta.setLore(lore);
+            if (name != null)
+                meta.setDisplayName(name);
+
+            if (!lore.isEmpty())
+                meta.setLore(lore);
 
             String action = cfg.getString(path + ".action");
 
@@ -75,32 +91,6 @@ public class ItemCreator {
             inventoryToUse.setItem(slot, item);
         }
     }
-
-    public void createItemWith(Material newMaterial, String itemName, List<String> newLore, int slotIndex, Player p, Inventory inventoryToUse, boolean unbreakable,String action)
-    {
-        // Erstellen von Item
-        ItemStack newItem = new ItemStack(newMaterial);
-
-        // ItemMeta erstellen
-        ItemMeta newItemMeta = newItem.getItemMeta();
-
-        // Meta Data verbinden
-        newItemMeta = newItem.getItemMeta();
-
-        // Display Namen setzen
-        newItemMeta.setDisplayName(itemName);
-
-        // Lore setzen
-        newItemMeta.setLore(newLore);
-        newItemMeta.setUnbreakable(unbreakable);
-
-        // Meta Data verbinden
-        newItem.setItemMeta(newItemMeta);
-
-        // Item ablegen
-        inventoryToUse.setItem(slotIndex,newItem);
-    }
-
 
 
     public static void giveItemsWithConfig(Player p, FileConfiguration cfg) {
@@ -202,4 +192,20 @@ public class ItemCreator {
         }
     }
 
+    public static ItemStack createHead(String texture) {
+        ItemStack item = new ItemStack(Material.PLAYER_HEAD);
+
+        SkullMeta meta = (SkullMeta) item.getItemMeta();
+
+        PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+
+        profile.setProperty(new ProfileProperty(
+                "textures", texture
+        ));
+
+        meta.setOwnerProfile(profile);
+        item.setItemMeta(meta);
+
+        return item;
+    }
 }

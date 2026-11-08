@@ -36,7 +36,7 @@ public class weather implements CommandExecutor, TabCompleter {
         World world = p.getWorld();
         if (args.length == 0)
         {
-            p.sendMessage("Zu wenig argumente! (Nutze /weather sun,storm)");
+            sendPlayerMessage(p,"§7Zu wenig §eargumente! §7(Nutze /weather sun,storm,rain)");
             return true;
         }
 
@@ -59,6 +59,10 @@ public class weather implements CommandExecutor, TabCompleter {
                 world.setStorm(true);
                 world.setThundering(true);
                 sendPlayerMessage(p,"§eWetter §7auf §eSturm §7gesetzt");
+
+            default:
+                sendPlayerMessage(p, "§cArgument §7wurde nicht §cgefunden §7(" + args[0] + ")");
+                break;
         }
         return true;
     }

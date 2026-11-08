@@ -1,1 +1,9 @@
 locations:
+  spawn:
+    ==: org.bukkit.Location
+    world_key: minecraft:overworld
+    x: 627.6999999880791
+    y: 91.0
+    z: 445.30000001192093
+    pitch: 11.566172
+    yaw: -102.190125
