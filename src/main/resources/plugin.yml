@@ -80,6 +80,9 @@ commands:
   size:
     usage: size
     description: "Verändert deine Größe"
+  eco:
+    usage: eco
+    description: "Geld verwaltung!"
 
   walkspeed:
     usage: walkspeed
@@ -104,25 +107,18 @@ permissions:
   size.use:
     description: "Erlaubt das verändern der Spieler-Größe"
     default: op
-
-  vanish.see:
-    description: "Shows player in Vanish"
-    default: op
-
   walkspeed.use:
     description: "Shows player in Vanish"
     default: op
-
   flyspeed.use:
     description: "Shows player in Vanish"
     default: op
-
   reload.use:
     description: "Reload"
     default: op
-
   vanish.bypass:
     description: "Shows player in Vanish"
     default: op
-
-
+  vanish.see:
+    description: "Shows player in Vanish"
+    default: op

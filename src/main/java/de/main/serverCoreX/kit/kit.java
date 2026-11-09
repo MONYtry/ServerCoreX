@@ -28,10 +28,10 @@ public class kit {
 
         sendPlayerMessage(p, "§7Du hast das §eStarter-Kit §7erfolgreich abgeholt!");
 
-        if (ServerCoreX.getEconomy().getBalance(p) != 0)
-            ServerCoreX.getEconomy().withdrawPlayer(p,ServerCoreX.getEconomy().getBalance(p));
+        //if (ServerCoreX.getInstance().economyManager.getBalance(p.getUniqueId())!= 0)
+          //  ServerCoreX.getInstance().economyManager.().withdrawPlayer(p,ServerCoreX.getEconomy().getBalance(p));
 
-        ServerCoreX.getEconomy().depositPlayer(p,1000);
+        //ServerCoreX.getEconomy().depositPlayer(p,1000);
 
     }
 }

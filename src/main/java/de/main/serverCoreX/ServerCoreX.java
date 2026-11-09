@@ -17,6 +17,9 @@
     import de.main.serverCoreX.commands.vanish.VanishChestAnimation;
     import de.main.serverCoreX.commands.vanish.vanish;
     import de.main.serverCoreX.commands.vanish.vanishListener;
+    import de.main.serverCoreX.economy.EconomyManager;
+    import de.main.serverCoreX.economy.VaultHook;
+    import de.main.serverCoreX.economy.ecoCommand;
     import de.main.serverCoreX.joinLeave.joinListener;
     import net.milkbowl.vault.economy.Economy;
     import org.bukkit.Bukkit;
@@ -56,37 +59,16 @@
 
 
         private static Economy economy;
+        public EconomyManager economyManager;
 
-        private boolean setupEconomy() {
-
-            if (getServer().getPluginManager().getPlugin("Vault") == null) {
-                return false;
-            }
-
-            RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-
-            if (rsp == null) {
-                return false;
-            }
-
-            economy = rsp.getProvider();
-
-            return economy != null;
-        }
-
-        public static Economy getEconomy() {
-            return economy;
-        }
 
         @Override
         public void onEnable()
         {
             instance = this;
-            if (!setupEconomy())
-            {
-                getLogger().severe("Vault-Economy konnte nicht geladen werden!");
-                return;
-            }
+
+            economyManager = new EconomyManager(this);
+            VaultHook.register(this);
 
             saveDefaultConfig();
             Bukkit.getPluginManager().registerEvents(new RestartCommand(),this);
@@ -129,6 +111,9 @@
             getCommand("spawn").setExecutor(new spawn());
             getCommand("delspawn").setExecutor(new delSpawn());
 
+            ecoCommand ecoCommand = new ecoCommand(economyManager);
+            getCommand("eco").setExecutor(ecoCommand);
+            getCommand("eco").setTabCompleter(ecoCommand);
 
 
             saveResource("messages.yml",false);
@@ -174,6 +159,9 @@
         @Override
         public void onDisable() {
             getLogger().info("Wird deaktiviert!");
+            if (economyManager != null) {
+                economyManager.save();
+            }
         }
 
 
@@ -181,7 +169,6 @@
         {
             return instance;
         }
-
 
 
 

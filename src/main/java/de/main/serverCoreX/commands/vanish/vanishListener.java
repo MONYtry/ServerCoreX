@@ -19,7 +19,7 @@ import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 public class vanishListener implements Listener {
 
     public static final Set<String> vanishedChests = new HashSet<>();
-    String path = "vanish";
+    String path = "vanish.";
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e)
@@ -29,7 +29,7 @@ public class vanishListener implements Listener {
         if (!getVanishedPlayer(p.getUniqueId()))
             return;
 
-        if (!p.hasPermission(path + ".bypass"))
+        if (!p.hasPermission(path + "bypass"))
             return;
 
         e.setCancelled(true);
@@ -44,7 +44,7 @@ public class vanishListener implements Listener {
         if (!getVanishedPlayer(p.getUniqueId()))
             return;
 
-        if (!p.hasPermission(path + ".bypass"))
+        if (!p.hasPermission(path + "bypass"))
             return;
 
         e.setCancelled(true);
@@ -58,7 +58,7 @@ public class vanishListener implements Listener {
         if (!getVanishedPlayer(p.getUniqueId()))
             return;
 
-        if (!p.hasPermission(path + ".bypass"))
+        if (!p.hasPermission(path + "bypass"))
             return;
 
         e.setCancelled(true);
@@ -86,7 +86,7 @@ public class vanishListener implements Listener {
         if (!getVanishedPlayer(p.getUniqueId()))
             return;
 
-        if (!p.hasPermission(path + ".bypass"))
+        if (!p.hasPermission(path + "bypass"))
             return;
 
         // Falls das Inventar keine Kiste war, abbruch

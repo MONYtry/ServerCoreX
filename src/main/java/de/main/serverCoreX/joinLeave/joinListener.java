@@ -1,5 +1,6 @@
 package de.main.serverCoreX.joinLeave;
 
+import de.main.serverCoreX.ServerCoreX;
 import de.main.serverCoreX.scoreboard.ScoardboardManager;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -34,6 +35,7 @@ public class joinListener implements Listener {
         ScoardboardManager.createScoreboard(p);
         giveKit(p);
         handleVanishOnJoin(p);
+        ServerCoreX.getInstance().economyManager.createAccount(p.getUniqueId());
     }
 
     @EventHandler
