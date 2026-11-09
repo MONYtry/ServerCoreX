@@ -8,8 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scoreboard.ScoreboardManager;
-
+import static de.main.serverCoreX.commands.vanish.vanish.handleVanishOnJoin;
 import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.kit.kit.giveKit;
 
@@ -34,6 +33,7 @@ public class joinListener implements Listener {
 
         ScoardboardManager.createScoreboard(p);
         giveKit(p);
+        handleVanishOnJoin(p);
     }
 
     @EventHandler

@@ -6,8 +6,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+
+import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 import static de.main.serverCoreX.helper.timer.repeat;
+import static de.main.serverCoreX.tablist.tablist.updateTablist;
 
 public class ScoardboardManager {
 
@@ -49,10 +52,13 @@ public class ScoardboardManager {
     {
         repeat(() -> {
             int onlinePlayers = Bukkit.getOnlinePlayers().size();
+            onlinePlayers -= getVanishedPlayers().size();
+
             int maxOnlinePlayers = Bukkit.getMaxPlayers();
 
             for (Player p : Bukkit.getOnlinePlayers())
             {
+                updateTablist();
                 if (p.isOp())
                     sendPlayerMessage(p,"§e[DEBUG] §7Scoreboard updated!");
 

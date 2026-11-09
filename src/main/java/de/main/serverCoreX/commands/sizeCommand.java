@@ -38,7 +38,7 @@ public class sizeCommand implements CommandExecutor {
                 if (scale != null) {
                     scale.setBaseValue(size);
 
-                    sendPlayerMessage(p,"§fDeine §eGröße §7wurde auf §e" + size + " §7gesetzt!");
+                    sendPlayerMessage(p,"§7Deine §eGröße §7wurde auf §e" + size + " §7gesetzt!");
                 }
 
             } catch (NumberFormatException e) {

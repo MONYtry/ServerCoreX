@@ -1,0 +1,7 @@
+tab-name: "%luckperms_prefix% §7| §f%player_name%"
+header: |
+  §6§lBLOCKHIVE.NET
+  §7Willkommen §e%player_name%
+footer: |
+  §7Viel Spaß auf §6§lBLOCKHIVE
+  §7Online: §e%online% §8| §7Website: §eBLOCKHIVE.INFO

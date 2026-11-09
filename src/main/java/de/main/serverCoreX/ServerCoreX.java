@@ -14,6 +14,9 @@
     import de.main.serverCoreX.commands.teleport.tpCommand;
     import de.main.serverCoreX.commands.teleport.tpaCommand;
     import de.main.serverCoreX.commands.teleport.tphereCommand;
+    import de.main.serverCoreX.commands.vanish.VanishChestAnimation;
+    import de.main.serverCoreX.commands.vanish.vanish;
+    import de.main.serverCoreX.commands.vanish.vanishListener;
     import de.main.serverCoreX.joinLeave.joinListener;
     import net.milkbowl.vault.economy.Economy;
     import org.bukkit.Bukkit;
@@ -34,6 +37,7 @@
         public FileConfiguration messages;
         public FileConfiguration locations;
         public FileConfiguration gui;
+
         public File locationsFile;
         public File messagesFile;
         public File guiFile;
@@ -46,6 +50,10 @@
 
         public File PlayerDataFile;
         public FileConfiguration PlayerData;
+
+        public File tablistFile;
+        public FileConfiguration tablist;
+
 
         private static Economy economy;
 
@@ -93,6 +101,7 @@
             getCommand("discord").setExecutor(new discord());
             getCommand("size").setExecutor(new sizeCommand());
             getCommand("rtp").setExecutor(new rtpCommand());
+            getCommand("vanish").setExecutor(new vanish());
             getCommand("reload").setExecutor(new reloadCommand());
 
             weather weatherCommand = new weather();
@@ -121,11 +130,13 @@
             getCommand("delspawn").setExecutor(new delSpawn());
 
 
+
             saveResource("messages.yml",false);
             saveResource("gui.yml", false);
             saveResource("starterkit.yml", false);
             saveResource("playerKitData.yml", false);
             saveResource("playerData.yml", false);
+            saveResource("tablist.yml", false);
 
             messagesFile = new File(getDataFolder(), "messages.yml");
             messages = YamlConfiguration.loadConfiguration(messagesFile);
@@ -142,6 +153,9 @@
             guiFile = new File(getDataFolder(), "gui.yml");
             gui = YamlConfiguration.loadConfiguration(guiFile);
 
+            tablistFile = new File(getDataFolder(), "tablist.yml");
+            tablist = YamlConfiguration.loadConfiguration(tablistFile);
+
             locationsFile = new File(getDataFolder(), "locations.yml");
             locations = YamlConfiguration.loadConfiguration(locationsFile);
 
@@ -152,6 +166,9 @@
 
             // Updated das Scoardboard
             update();
+
+            Bukkit.getPluginManager().registerEvents(new vanishListener(), this);
+            VanishChestAnimation.register(this);
         }
 
         @Override
@@ -191,6 +208,7 @@
             startKitConfig = YamlConfiguration.loadConfiguration(starterKitConfigFile);
             kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
             PlayerData = YamlConfiguration.loadConfiguration(PlayerDataFile);
+            tablist = YamlConfiguration.loadConfiguration(tablistFile);
             reloadConfig();
         }
 

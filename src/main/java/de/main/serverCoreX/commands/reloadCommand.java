@@ -15,8 +15,15 @@ public class reloadCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if (!command.getName().equalsIgnoreCase("reload"))
             return true;
+
         if (!(sender instanceof Player p))
             return true;
+
+        if (!p.hasPermission("reload.use"))
+        {
+            sendPlayerMessage(p,getNoPerm());
+            return true;
+        }
 
         FileConfiguration file = getMessages();
 

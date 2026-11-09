@@ -2,7 +2,7 @@ name: ServerCoreX
 version: '1.0-SNAPSHOT'
 main: de.main.serverCoreX.ServerCoreX
 api-version: '1.21'
-depend: [PlaceholderAPI]
+depend: [PlaceholderAPI, ProtocolLib]
 softdepend:
   - Vault
 commands:
@@ -71,12 +71,20 @@ commands:
       - farm
       - randomteleport
 
+  vanish:
+    usage: vanish
+    description: "Setzt User in den Vanish"
+    aliases:
+      - v
+
   size:
     usage: size
     description: "Verändert deine Größe"
+
   walkspeed:
     usage: walkspeed
     description: "Verändert deine Lauf-Geschwindigkeit"
+
   flyspeed:
     usage: flyspeed
     description: "Verändert deine Lauf-Geschwindigkeit"
@@ -95,6 +103,26 @@ permissions:
     default: op
   size.use:
     description: "Erlaubt das verändern der Spieler-Größe"
+    default: op
+
+  vanish.see:
+    description: "Shows player in Vanish"
+    default: op
+
+  walkspeed.use:
+    description: "Shows player in Vanish"
+    default: op
+
+  flyspeed.use:
+    description: "Shows player in Vanish"
+    default: op
+
+  reload.use:
+    description: "Reload"
+    default: op
+
+  vanish.bypass:
+    description: "Shows player in Vanish"
     default: op
 
 

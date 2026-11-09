@@ -31,7 +31,7 @@ public class walkspeedCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player p))
             return true;
 
-        String perm = "size.use";
+        String perm = "walkspeed.use";
         if (!p.hasPermission(perm))
         {
             sendPlayerMessage(p,getNoPerm());

@@ -33,7 +33,7 @@ public class flySpeedCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player p))
             return true;
 
-        String perm = "size.use";
+        String perm = "flyspeed.use";
         if (!p.hasPermission(perm))
         {
             sendPlayerMessage(p,getNoPerm());
