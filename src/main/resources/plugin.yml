@@ -71,6 +71,17 @@ commands:
       - farm
       - randomteleport
 
+  size:
+    usage: size
+    description: "Verändert deine Größe"
+  walkspeed:
+    usage: walkspeed
+    description: "Verändert deine Lauf-Geschwindigkeit"
+  flyspeed:
+    usage: flyspeed
+    description: "Verändert deine Lauf-Geschwindigkeit"
+
+
 permissions:
   serverrestart.use:
     default: op
@@ -81,6 +92,9 @@ permissions:
   gamemode.use:
     default: op
   gamemode.others:
+    default: op
+  size.use:
+    description: "Erlaubt das verändern der Spieler-Größe"
     default: op
 
 

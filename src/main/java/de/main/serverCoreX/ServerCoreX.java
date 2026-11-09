@@ -8,6 +8,8 @@
     import de.main.serverCoreX.commands.spawn.delSpawn;
     import de.main.serverCoreX.commands.spawn.setSpawn;
     import de.main.serverCoreX.commands.spawn.spawn;
+    import de.main.serverCoreX.commands.speed.flySpeedCommand;
+    import de.main.serverCoreX.commands.speed.walkspeedCommand;
     import de.main.serverCoreX.commands.teleport.AcceptCommand;
     import de.main.serverCoreX.commands.teleport.tpCommand;
     import de.main.serverCoreX.commands.teleport.tpaCommand;
@@ -77,6 +79,7 @@
                 getLogger().severe("Vault-Economy konnte nicht geladen werden!");
                 return;
             }
+
             saveDefaultConfig();
             Bukkit.getPluginManager().registerEvents(new RestartCommand(),this);
             Bukkit.getPluginManager().registerEvents(new HealCommand(),this);
@@ -88,6 +91,9 @@
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("gm").setExecutor(new GamemodeCommand());
             getCommand("discord").setExecutor(new discord());
+            getCommand("size").setExecutor(new sizeCommand());
+            getCommand("rtp").setExecutor(new rtpCommand());
+            getCommand("reload").setExecutor(new reloadCommand());
 
             weather weatherCommand = new weather();
             getCommand("setweather").setExecutor(weatherCommand);
@@ -97,6 +103,14 @@
             getCommand("settime").setExecutor(timeCommand);
             getCommand("settime").setTabCompleter(timeCommand);
 
+            walkspeedCommand walkspeedCommand = new walkspeedCommand();
+            getCommand("walkspeed").setExecutor(walkspeedCommand);
+            getCommand("walkspeed").setTabCompleter(walkspeedCommand);
+
+            flySpeedCommand flySpeedCommand = new flySpeedCommand();
+            getCommand("flyspeed").setExecutor(flySpeedCommand);
+            getCommand("flyspeed").setTabCompleter(flySpeedCommand);
+
             getCommand("tpa").setExecutor(new tpaCommand());
             getCommand("tpyes").setExecutor(new AcceptCommand());
             getCommand("tp").setExecutor(new tpCommand());
@@ -105,9 +119,7 @@
             getCommand("setspawn").setExecutor(new setSpawn());
             getCommand("spawn").setExecutor(new spawn());
             getCommand("delspawn").setExecutor(new delSpawn());
-            getCommand("rtp").setExecutor(new rtpCommand());
 
-            getCommand("reload").setExecutor(new reloadCommand());
 
             saveResource("messages.yml",false);
             saveResource("gui.yml", false);
