@@ -18,6 +18,6 @@ public class locationManager {
 
         config.set("locations." + key, loc);
 
-        ServerCoreX.getInstance().saveLocations();
+        ServerCoreX.getInstance().saveFile(ServerCoreX.getInstance().locationsFile, ServerCoreX.getInstance().locations);
     }
 }

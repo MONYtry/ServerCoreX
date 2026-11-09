@@ -1,6 +1,8 @@
     package de.main.serverCoreX;
 
     import de.main.serverCoreX.commands.*;
+    import de.main.serverCoreX.commands.rewards.belohnung.belohnungCommand;
+    import de.main.serverCoreX.commands.rewards.daily.dailyCommand;
     import de.main.serverCoreX.commands.rtp.farmworld.farmweltListener;
     import de.main.serverCoreX.commands.rtp.rtpCommand;
     import de.main.serverCoreX.commands.rtp.rtpListener;
@@ -19,16 +21,14 @@
     import de.main.serverCoreX.commands.vanish.vanishListener;
     import de.main.serverCoreX.economy.EconomyManager;
     import de.main.serverCoreX.economy.VaultHook;
+    import de.main.serverCoreX.economy.bank.bankCommand;
+    import de.main.serverCoreX.economy.bank.bankListener;
     import de.main.serverCoreX.economy.ecoCommand;
     import de.main.serverCoreX.joinLeave.joinListener;
-    import net.milkbowl.vault.economy.Economy;
     import org.bukkit.Bukkit;
     import org.bukkit.configuration.file.FileConfiguration;
     import org.bukkit.configuration.file.YamlConfiguration;
-    import org.bukkit.plugin.RegisteredServiceProvider;
     import org.bukkit.plugin.java.JavaPlugin;
-    import org.yaml.snakeyaml.constructor.SafeConstructor;
-
     import java.io.File;
     import java.io.IOException;
     import static de.main.serverCoreX.BroadcastManager.startMessages;
@@ -57,10 +57,10 @@
         public File tablistFile;
         public FileConfiguration tablist;
 
+        public File bankFile;
+        public FileConfiguration bank;
 
-        private static Economy economy;
         public EconomyManager economyManager;
-
 
         @Override
         public void onEnable()
@@ -77,8 +77,11 @@
             Bukkit.getPluginManager().registerEvents(new rtpListener(),this);
             Bukkit.getPluginManager().registerEvents(new spawnProtection(),this);
             Bukkit.getPluginManager().registerEvents(new farmweltListener(),this);
+            Bukkit.getPluginManager().registerEvents(new bankListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
+            getCommand("belohnung").setExecutor(new belohnungCommand());
+            getCommand("daily").setExecutor(new dailyCommand());
             getCommand("gm").setExecutor(new GamemodeCommand());
             getCommand("discord").setExecutor(new discord());
             getCommand("size").setExecutor(new sizeCommand());
@@ -111,12 +114,15 @@
             getCommand("spawn").setExecutor(new spawn());
             getCommand("delspawn").setExecutor(new delSpawn());
 
-            ecoCommand ecoCommand = new ecoCommand(economyManager);
+            getCommand("bank").setExecutor(new bankCommand());
+
+            ecoCommand ecoCommand = new ecoCommand();
             getCommand("eco").setExecutor(ecoCommand);
             getCommand("eco").setTabCompleter(ecoCommand);
 
 
             saveResource("messages.yml",false);
+            saveResource("bank.yml",false);
             saveResource("gui.yml", false);
             saveResource("starterkit.yml", false);
             saveResource("playerKitData.yml", false);
@@ -125,6 +131,9 @@
 
             messagesFile = new File(getDataFolder(), "messages.yml");
             messages = YamlConfiguration.loadConfiguration(messagesFile);
+
+            bankFile = new File(getDataFolder(), "bank.yml");
+            bank = YamlConfiguration.loadConfiguration(bankFile);
 
             kitPlayerDataFile = new File(getDataFolder(), "playerKitData.yml");
             kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
@@ -159,6 +168,11 @@
         @Override
         public void onDisable() {
             getLogger().info("Wird deaktiviert!");
+
+            if (PlayerData != null) {
+                saveFile(PlayerDataFile, PlayerData);
+            }
+
             if (economyManager != null) {
                 economyManager.save();
             }
@@ -171,20 +185,20 @@
         }
 
 
-
-        public void saveLocations() {
+        public void saveFile(File file, FileConfiguration fileConfiguration)
+        {
+            if (file == null || fileConfiguration == null)
+            {
+                Bukkit.getLogger().warning("Etwas ist beim Speichern schiefgelaufen. (Kritisch)");
+                return;
+            }
             try {
-                locations.save(locationsFile);
+                fileConfiguration.save(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        public void saveAll()
-        {
-            // Speicherung von Datein
-            saveLocations();
-        }
 
         public void reloadAll()
         {
@@ -196,6 +210,7 @@
             kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
             PlayerData = YamlConfiguration.loadConfiguration(PlayerDataFile);
             tablist = YamlConfiguration.loadConfiguration(tablistFile);
+            bank = YamlConfiguration.loadConfiguration(bankFile);
             reloadConfig();
         }
 

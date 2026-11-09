@@ -32,6 +32,11 @@
             <id>placeholderapi</id>
             <url>https://repo.helpch.at/releases/</url>
         </repository>
+
+        <repository>
+            <id>mvn-wesjd-net</id>
+            <url>https://mvn.wesjd.net/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -42,6 +47,12 @@
             <artifactId>paper-api</artifactId>
             <version>1.21.8-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.wesjd</groupId>
+            <artifactId>anvilgui</artifactId>
+            <version>1.10.13-SNAPSHOT</version>
         </dependency>
 
         <!-- PlaceholderAPI -->
@@ -98,6 +109,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.5.3</version>
+
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -106,6 +118,11 @@
                         </goals>
                     </execution>
                 </executions>
+
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
+                </configuration>
             </plugin>
 
         </plugins>

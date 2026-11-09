@@ -59,8 +59,6 @@ public class ScoardboardManager {
             for (Player p : Bukkit.getOnlinePlayers())
             {
                 updateTablist();
-                if (p.isOp())
-                    sendPlayerMessage(p,"§e[DEBUG] §7Scoreboard updated!");
 
                 // Holt sich das Scoreboard des Spielers
                 Scoreboard board = p.getScoreboard();

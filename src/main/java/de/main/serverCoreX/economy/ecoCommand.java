@@ -9,19 +9,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.text.NumberFormat;
+import java.util.*;
 
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
 public class ecoCommand implements CommandExecutor, TabCompleter {
-    private final EconomyManager manager;
 
-    public ecoCommand(EconomyManager manager) {
-        this.manager = manager;
-    }
 
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args)
@@ -60,31 +54,38 @@ public class ecoCommand implements CommandExecutor, TabCompleter {
         }
         UUID uuid = target.getUniqueId();
 
+        NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
+
         int amount = 0;
         try
         {
             amount = Integer.parseInt(args[2]);
+
         }
         catch (NumberFormatException e)
         {
             e.printStackTrace();
         }
-
+        String formattedAmount = format.format(amount);
         switch (args[0].toLowerCase())
         {
             case "set":
-                manager.setBalance(uuid, amount);
-                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde auf §e" + amount + " §7gesetzt");
+                EconomyManager.setBalance(uuid, amount);
+                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde auf §e" + formattedAmount + " §7gesetzt");
             break;
 
             case "give":
-                manager.addBalance(uuid, amount);
-                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde um §e" + amount + " §7erhöht");
+                EconomyManager.addBalance(uuid, amount);
+                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde um §e" + formattedAmount + " §7erhöht");
             break;
 
             case "take":
-                manager.removeFromBalance(uuid, amount);
-                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde um §e" + amount + " §7erhöht");
+                if (!EconomyManager.removeFromBalance(uuid,amount))
+                {
+                    sendPlayerMessage(p, "§7Das Guthaben des Spielers §e" + target.getName() + " §7reicht nicht aus!");
+                    return true;
+                }
+                sendPlayerMessage(p, "§7Es wurden §e" + formattedAmount + " §7von dem §eGuthaben §7des Spielers §e" + p.getName() + " §7entfernt!");
             break;
         }
         return true;

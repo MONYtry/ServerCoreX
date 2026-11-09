@@ -1,0 +1,42 @@
+guiTitel: "§eFarmwelten"
+items:
+  einzahlen:
+    material: PLAYER_HEAD
+    slot: 11
+    name: "§aEinzahlen"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjUwOWRlOTgxYTc4NmE5ODBiMGJjODcxYWQ4NTViMjBjZTBiNzAxYjdhMmRmMTRjZmZmNmIzYTZlNDUyOTcyMyJ9fX0="
+    lore:
+      - ""
+      - "§eKlicke hier§7, und zahle"
+      - "§7dein §eGeld §7in die §eBank §7ein!"
+    action: "einzahlen"
+
+  auszahlen:
+    material: REDSTONE_BLOCK
+    slot: 13
+    name: "§cAuszahlen"
+    lore:
+      - ""
+      - "§eKlicke hier§7, und zahle"
+      - "§7dein §eGeld §7aus der §eBank §7aus!"
+    action: "auszahlen"
+
+  end:
+    material: BOOK
+    slot: 15
+    name: "§9Deine Bank-Statstik"
+    lore:
+      - ""
+      - "§7Kontostand: %get_balance%"
+      - ""
+      - "§7Tipp: zahle §eGeld in die §eBank ein um"
+      - "§7es mit §eFreunden §7zu §eVerwalten"
+      - "§7(Update Idee)"
+
+  close:
+    material: BARRIER
+    slot: 31
+    name: "§c§lSchließen"
+    lore:
+      - "§7Schließt dieses Menü."
+    action: "close"

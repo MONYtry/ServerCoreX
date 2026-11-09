@@ -1,4 +1,3 @@
-
 package de.main.serverCoreX.economy;
 
 import de.main.serverCoreX.ServerCoreX;
@@ -10,87 +9,104 @@ import java.util.UUID;
 
 public class EconomyManager {
 
-    private final File balancesFile;
-    private final YamlConfiguration balances;
+    private static File balancesFile;
+    private static YamlConfiguration balances;
 
-    public EconomyManager(ServerCoreX plugin)
-    {
-        // Holt Datei von dem standard Plugin-Path und mit dem Namen "balances.yml"
+    public EconomyManager(ServerCoreX plugin) {
         balancesFile = new File(plugin.getDataFolder(), "balances.yml");
 
-        // Falls Datei nicht exsitiert, erstellt Datei
-        if (!balancesFile.exists())
-        {
-            try
-            {
+        if (!balancesFile.exists()) {
+            try {
                 balancesFile.getParentFile().mkdirs();
                 balancesFile.createNewFile();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        // Setzt die Config auf die eben erstellte Datei
+
         balances = YamlConfiguration.loadConfiguration(balancesFile);
     }
 
-    public void createAccount(UUID uuid)
-    {
-        if (hasAccount(uuid))
-            return;
+    private static String path(UUID uuid) {
+        return "balances." + uuid;
+    }
 
-        balances.set("balances." + uuid, 100.0);
+    public static void createAccount(UUID uuid) {
+        if (hasAccount(uuid)) return;
+
+        balances.set(path(uuid) + ".balance", 1000.0);
         save();
     }
 
-    public boolean hasAccount(UUID uuid)
-    {
-        return balances.contains("balances." + uuid);
+    public static boolean hasAccount(UUID uuid) {
+        return balances.contains(path(uuid));
     }
 
-    public double getBalance(UUID uuid) {
-        return balances.getDouble("balances." + uuid, 100.0);
+    public static double getBalance(UUID uuid) {
+        return balances.getDouble(path(uuid) + ".balance");
     }
 
-    public void setBalance(UUID uuid, double amount)
-    {
+    public static double getOnlineBalance(UUID uuid) {
+        return balances.getDouble(path(uuid) + ".onlinebalance");
+    }
+
+    public static void setBalance(UUID uuid, double amount) {
+        if (!hasAccount(uuid) || amount < 0) return;
+
+        balances.set(path(uuid) + ".balance", amount);
+        save();
+    }
+
+    public static void setOnlineBalance(UUID uuid, double amount) {
         if (!hasAccount(uuid))
             return;
+        if (amount < 0)
+            return;
 
-        balances.set("balances." + uuid, amount);
+        balances.set(path(uuid) + ".onlinebalance", amount);
         save();
     }
 
-    public void removeFromBalance(UUID uuid, double amount)
-    {
+    public static boolean removeFromBalance(UUID uuid, double amount) {
+        if (!hasAccount(uuid) || amount <= 0 || getBalance(uuid) < amount)
+            return false;
+
+        setBalance(uuid, getBalance(uuid) - amount);
+        return true;
+    }
+
+    public static boolean removeFromOnlineBalance(UUID uuid, double amount) {
         if (!hasAccount(uuid))
-            return;
+            return false;
+        if (amount <= 0)
+            return false;
+        if (getOnlineBalance(uuid) < amount)
+            return false;
 
-        if (getBalance(uuid) - amount <= 0)
-            return;
-
-        balances.set("balances." + uuid, getBalance(uuid) - amount);
-        save();
+        setOnlineBalance(uuid, getOnlineBalance(uuid) - amount);
+        return true;
     }
 
-    public void addBalance(UUID uuid, double amount)
-    {
-        if (!hasAccount(uuid))
-            return;
+    public static void addBalance(UUID uuid, double amount) {
+        if (!hasAccount(uuid) || amount <= 0) return;
 
-        balances.set("balances." + uuid, getBalance(uuid) + amount);
-        save();
+        setBalance(uuid, getBalance(uuid) + amount);
     }
 
-    public void save() {
-        try
-        {
+    public static void addOnlineBalance(UUID uuid, double amount) {
+        if (!hasAccount(uuid) || amount <= 0) return;
+
+        setOnlineBalance(uuid, getOnlineBalance(uuid) + amount);
+    }
+
+    public static void save() {
+        if (balances == null) return;
+
+        try {
             balances.save(balancesFile);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 }
+

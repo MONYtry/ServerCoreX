@@ -11,7 +11,7 @@ import static de.main.serverCoreX.helper.timer.repeat;
 public class BroadcastManager {
     static int indexNumber = 0;
 
-    private static void createMessage(String text, boolean isClickable, String urlToOpen)
+    private static void createMessage(String text, boolean isClickable, String actionToDo,ClickEvent.Action action)
     {
         TextComponent empty = new TextComponent(getPrefix() + "");
         TextComponent line = new TextComponent(getPrefix() + "§8§l━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -25,7 +25,7 @@ public class BroadcastManager {
             TextComponent message = new TextComponent(getPrefix() + text);
 
             // Click-Event
-            message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, urlToOpen));
+            message.setClickEvent(new ClickEvent(action, actionToDo));
 
             // Hover-Message
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§eKlicke zum Annehmen!").create()));
@@ -46,10 +46,10 @@ public class BroadcastManager {
     repeat(() -> {
                 switch (indexNumber)
                 {
-                    case 0 -> createMessage("§7Klicke §bhier§7 um auf §bDiscord §7zu gelangen!",true,"https://github.com/MONYtry");
-                    case 1 -> createMessage("§7Nutze §e/belohnung §7um deine §eBelohungen §7abzuholen!",false,null);
-                    case 2 -> createMessage("§7Nutze §e/help §7für Infos!",false,null);
-                    default -> createMessage("§cUnerwarteter Fehler! (Kontaktiere einen Administrator!)", false,null);
+                    case 0 -> createMessage("§7Klicke §bhier§7 um auf §bDiscord §7zu gelangen!",true,"https://github.com/MONYtry",ClickEvent.Action.OPEN_URL);
+                    case 1 -> createMessage("§7Denk an deine kostenlose §eBelohnung §7(/belohnung)",false,"belohnung",ClickEvent.Action.RUN_COMMAND);
+                    case 2 -> createMessage("§7Nutze §e/help §7für Infos!",false,"help",ClickEvent.Action.RUN_COMMAND);
+                    default -> createMessage("§cUnerwarteter Fehler! (Kontaktiere einen Administrator!)", false,null, null);
                 }
 
                 indexNumber++;

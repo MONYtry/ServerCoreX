@@ -2,6 +2,7 @@
 package de.main.serverCoreX.kit;
 
 import de.main.serverCoreX.ServerCoreX;
+import de.main.serverCoreX.economy.EconomyManager;
 import org.bukkit.entity.Player;
 import java.util.UUID;
 
@@ -27,11 +28,5 @@ public class kit {
         addToCollectedKit(uuid);
 
         sendPlayerMessage(p, "§7Du hast das §eStarter-Kit §7erfolgreich abgeholt!");
-
-        //if (ServerCoreX.getInstance().economyManager.getBalance(p.getUniqueId())!= 0)
-          //  ServerCoreX.getInstance().economyManager.().withdrawPlayer(p,ServerCoreX.getEconomy().getBalance(p));
-
-        //ServerCoreX.getEconomy().depositPlayer(p,1000);
-
     }
 }

@@ -1,9 +1,9 @@
 package de.main.serverCoreX.helper;
 
-
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import de.main.serverCoreX.ServerCoreX;
+import de.main.serverCoreX.economy.EconomyManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -21,7 +21,8 @@ import java.util.UUID;
 
 public class ItemCreator {
 
-    public static void autoGenItemsWithConfigGUI(Inventory inventoryToUse,FileConfiguration cfgToUse)
+
+    public static void autoGenItemsWithConfigGUI(Inventory inventoryToUse,FileConfiguration cfgToUse, Player p)
     {
         FileConfiguration cfg = cfgToUse;
 
@@ -45,6 +46,14 @@ public class ItemCreator {
 
             // Item Lore
             List<String> lore = cfg.getStringList(path + ".lore");
+            if (p != null)
+            {
+                double balance = EconomyManager.getOnlineBalance(p.getUniqueId());
+                for (int i = 0; i < lore.size(); i++)
+                {
+                    lore.set(i, lore.get(i).replace("%get_balance%", String.valueOf(balance)));
+                }
+            }
 
             // Ignorieren
             Material material;

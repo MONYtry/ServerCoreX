@@ -14,7 +14,7 @@ public class rtpGUI {
     public static Inventory getGUI()
     {
         Inventory gui = Bukkit.createInventory(null,36,getPrefix() + "§eFarmwelten");
-        ItemCreator.autoGenItemsWithConfigGUI(gui, ServerCoreX.getInstance().gui);
+        ItemCreator.autoGenItemsWithConfigGUI(gui, ServerCoreX.getInstance().gui,null);
         return gui;
     }
 }
