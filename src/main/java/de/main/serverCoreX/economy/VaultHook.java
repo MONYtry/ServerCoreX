@@ -39,14 +39,14 @@ public class VaultHook implements Economy {
 
     @Override
     public String format(double amount) {
-        return amount + " Coins";
+        return amount + "$";
     }
 
     @Override
-    public String currencyNamePlural() { return "Coins"; }
+    public String currencyNamePlural() { return "$"; }
 
     @Override
-    public String currencyNameSingular() { return "Coin"; }
+    public String currencyNameSingular() { return "$"; }
 
     @Override
     public boolean hasAccount(OfflinePlayer player) { return true; }

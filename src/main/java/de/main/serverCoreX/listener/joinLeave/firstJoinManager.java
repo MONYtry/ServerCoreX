@@ -1,11 +1,10 @@
-package de.main.serverCoreX.joinLeave;
+package de.main.serverCoreX.listener.joinLeave;
 
 import de.main.serverCoreX.ServerCoreX;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 

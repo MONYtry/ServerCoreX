@@ -1,4 +1,4 @@
-package de.main.serverCoreX.joinLeave;
+package de.main.serverCoreX.listener.joinLeave;
 
 import de.main.serverCoreX.ServerCoreX;
 import de.main.serverCoreX.scoreboard.ScoardboardManager;

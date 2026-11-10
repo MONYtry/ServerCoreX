@@ -1,6 +1,8 @@
     package de.main.serverCoreX;
 
     import de.main.serverCoreX.commands.*;
+    import de.main.serverCoreX.commands.broadcast.broadcast;
+    import de.main.serverCoreX.commands.clearchat.clearChatCommand;
     import de.main.serverCoreX.commands.rewards.belohnung.belohnungCommand;
     import de.main.serverCoreX.commands.rewards.daily.dailyCommand;
     import de.main.serverCoreX.commands.rtp.farmworld.farmweltListener;
@@ -25,7 +27,8 @@
     import de.main.serverCoreX.economy.bank.bankListener;
     import de.main.serverCoreX.economy.ecoCommand;
     import de.main.serverCoreX.economy.payCommand;
-    import de.main.serverCoreX.joinLeave.joinListener;
+    import de.main.serverCoreX.listener.joinLeave.joinListener;
+    import de.main.serverCoreX.listener.messageListener;
     import org.bukkit.Bukkit;
     import org.bukkit.configuration.file.FileConfiguration;
     import org.bukkit.configuration.file.YamlConfiguration;
@@ -79,6 +82,7 @@
             Bukkit.getPluginManager().registerEvents(new spawnProtection(),this);
             Bukkit.getPluginManager().registerEvents(new farmweltListener(),this);
             Bukkit.getPluginManager().registerEvents(new bankListener(),this);
+            Bukkit.getPluginManager().registerEvents(new messageListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("belohnung").setExecutor(new belohnungCommand());
@@ -121,7 +125,9 @@
             getCommand("eco").setExecutor(ecoCommand);
             getCommand("eco").setTabCompleter(ecoCommand);
 
+            getCommand("broadcast").setExecutor(new broadcast());
             getCommand("pay").setExecutor(new payCommand());
+            getCommand("clearchat").setExecutor(new clearChatCommand());
 
 
             saveResource("messages.yml",false);

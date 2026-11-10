@@ -55,11 +55,9 @@ public class ScoardboardManager {
             onlinePlayers -= getVanishedPlayers().size();
 
             int maxOnlinePlayers = Bukkit.getMaxPlayers();
-
+            updateTablist();
             for (Player p : Bukkit.getOnlinePlayers())
             {
-                updateTablist();
-
                 // Holt sich das Scoreboard des Spielers
                 Scoreboard board = p.getScoreboard();
 

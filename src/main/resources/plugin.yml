@@ -2,13 +2,16 @@ name: ServerCoreX
 version: '1.0-SNAPSHOT'
 main: de.main.serverCoreX.ServerCoreX
 api-version: '1.21'
-depend: [PlaceholderAPI, ProtocolLib]
+depend: [PlaceholderAPI, ProtocolLib, LuckPerms]
 softdepend:
   - Vault
 commands:
   fly:
     usage: fly
     description: "Use it to fly around your Server"
+  broadcast:
+    usage: broadcast
+    description: "Broadcast"
 
   gm:
     usage: gm
@@ -62,6 +65,12 @@ commands:
   settime:
     usage: settime
     description: "Setzt die Uhrzeit"
+
+  clearchat:
+    usage: clearchat
+    description: "Clears the Chat"
+    aliases:
+      - cc
 
   rtp:
     usage: rtp
