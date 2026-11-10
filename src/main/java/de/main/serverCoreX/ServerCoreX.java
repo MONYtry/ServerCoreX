@@ -24,6 +24,7 @@
     import de.main.serverCoreX.economy.bank.bankCommand;
     import de.main.serverCoreX.economy.bank.bankListener;
     import de.main.serverCoreX.economy.ecoCommand;
+    import de.main.serverCoreX.economy.payCommand;
     import de.main.serverCoreX.joinLeave.joinListener;
     import org.bukkit.Bukkit;
     import org.bukkit.configuration.file.FileConfiguration;
@@ -119,6 +120,8 @@
             ecoCommand ecoCommand = new ecoCommand();
             getCommand("eco").setExecutor(ecoCommand);
             getCommand("eco").setTabCompleter(ecoCommand);
+
+            getCommand("pay").setExecutor(new payCommand());
 
 
             saveResource("messages.yml",false);

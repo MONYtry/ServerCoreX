@@ -68,7 +68,11 @@ public class EconomyManager {
     }
 
     public static boolean removeFromBalance(UUID uuid, double amount) {
-        if (!hasAccount(uuid) || amount <= 0 || getBalance(uuid) < amount)
+        if (!hasAccount(uuid))
+            return false;
+        if (amount <= 0)
+            return false;
+        if (getBalance(uuid) < amount)
             return false;
 
         setBalance(uuid, getBalance(uuid) - amount);

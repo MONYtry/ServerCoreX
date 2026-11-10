@@ -80,21 +80,29 @@ commands:
   size:
     usage: size
     description: "Verändert deine Größe"
+
   eco:
     usage: eco
     description: "Geld verwaltung!"
+
   bank:
     usage: bank
     description: "bank"
+
   belohnung:
     usage: belohnung
     description: "Holt die Belohngung ab"
+
+  pay:
+    usage: pay
+    description: "Nutzen von Geld payn"
 
   daily:
     usage: daily
     description: "Einsammeln von täglicher Belohnung"
     aliases:
       - täglichebelohnung
+
   walkspeed:
     usage: walkspeed
     description: "Verändert deine Lauf-Geschwindigkeit"
@@ -102,7 +110,6 @@ commands:
   flyspeed:
     usage: flyspeed
     description: "Verändert deine Lauf-Geschwindigkeit"
-
 
 permissions:
   serverrestart.use:
