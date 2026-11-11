@@ -28,7 +28,7 @@
     import de.main.serverCoreX.economy.ecoCommand;
     import de.main.serverCoreX.economy.payCommand;
     import de.main.serverCoreX.listener.joinLeave.joinListener;
-    import de.main.serverCoreX.listener.messageListener;
+    import de.main.serverCoreX.listener.chat.messageListener;
     import org.bukkit.Bukkit;
     import org.bukkit.configuration.file.FileConfiguration;
     import org.bukkit.configuration.file.YamlConfiguration;
