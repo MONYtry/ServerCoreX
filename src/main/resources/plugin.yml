@@ -71,6 +71,10 @@ commands:
     description: "Clears the Chat"
     aliases:
       - cc
+  invsee:
+    usage: invsee
+    description: "invsee"
+
 
   rtp:
     usage: rtp
@@ -119,11 +123,19 @@ commands:
   flyspeed:
     usage: flyspeed
     description: "Verändert deine Lauf-Geschwindigkeit"
-
+  clear:
+    usage: clear
+    description: "clear"
 permissions:
+  chat.cooldown.bypass:
+    default: op
   serverrestart.use:
     default: op
   heal.use:
+    default: op
+  invsee.use:
+    default: op
+  invsee.take:
     default: op
   fly.use:
     default: op

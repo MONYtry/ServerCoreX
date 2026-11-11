@@ -2,7 +2,10 @@
 
     import de.main.serverCoreX.commands.*;
     import de.main.serverCoreX.commands.broadcast.broadcast;
+    import de.main.serverCoreX.commands.clear.clearCommand;
     import de.main.serverCoreX.commands.clearchat.clearChatCommand;
+    import de.main.serverCoreX.commands.invsee.invseeCommand;
+    import de.main.serverCoreX.commands.invsee.invseeListener;
     import de.main.serverCoreX.commands.rewards.belohnung.belohnungCommand;
     import de.main.serverCoreX.commands.rewards.daily.dailyCommand;
     import de.main.serverCoreX.commands.rtp.farmworld.farmweltListener;
@@ -83,8 +86,10 @@
             Bukkit.getPluginManager().registerEvents(new farmweltListener(),this);
             Bukkit.getPluginManager().registerEvents(new bankListener(),this);
             Bukkit.getPluginManager().registerEvents(new messageListener(),this);
+            Bukkit.getPluginManager().registerEvents(new invseeListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
+            getCommand("clear").setExecutor(new clearCommand());
             getCommand("belohnung").setExecutor(new belohnungCommand());
             getCommand("daily").setExecutor(new dailyCommand());
             getCommand("gm").setExecutor(new GamemodeCommand());
@@ -124,6 +129,8 @@
             ecoCommand ecoCommand = new ecoCommand();
             getCommand("eco").setExecutor(ecoCommand);
             getCommand("eco").setTabCompleter(ecoCommand);
+
+            getCommand("invsee").setExecutor(new invseeCommand());
 
             getCommand("broadcast").setExecutor(new broadcast());
             getCommand("pay").setExecutor(new payCommand());

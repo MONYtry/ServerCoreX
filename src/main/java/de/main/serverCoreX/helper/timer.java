@@ -19,7 +19,7 @@ public class timer {
 
     public static void repeat(Runnable task, long ticks)
     {
-        Bukkit.getScheduler().runTaskTimer(
+            Bukkit.getScheduler().runTaskTimer(
                 ServerCoreX.getInstance(),
                 task,
                 ticks,

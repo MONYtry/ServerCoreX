@@ -20,22 +20,26 @@ import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 import static de.main.serverCoreX.helper.timer.delay;
 import static de.main.serverCoreX.listener.chat.messageManager.chatCooldown;
 
-
 public class messageListener implements Listener {
     @EventHandler
     public void onMessage(AsyncChatEvent e)
     {
         Player p = e.getPlayer();
 
-        if (chatCooldown.contains(p.getUniqueId()))
+        if (chatCooldown.contains(p.getUniqueId()) && !p.hasPermission("chat.cooldown.bypass"))
         {
             e.setCancelled(true);
 
             sendPlayerMessage(p,"§7Hey du §7sendest §7zu schnell §eNachrichten!");
             return;
         }
-        chatCooldown.add(p.getUniqueId());
-        delay(() -> chatCooldown.remove(p.getUniqueId()),20L * 3);
+
+        if (!p.hasPermission("chat.cooldown.bypass"))
+        {
+            chatCooldown.add(p.getUniqueId());
+            delay(() -> chatCooldown.remove(p.getUniqueId()),20L * 3);
+        }
+
         String rawMessage = PlainTextComponentSerializer.plainText().serialize(e.message());
 
         String prefix = PlaceholderAPI.setPlaceholders(p,"%luckperms_prefix%");
@@ -58,8 +62,6 @@ public class messageListener implements Listener {
                             .append(finalMessage.color(NamedTextColor.GRAY));
 
             e.renderer(chatRenderer);
-
-
             return;
         }
 
@@ -195,7 +197,6 @@ public class messageListener implements Listener {
                         .append(sourceDisplayName.color(NamedTextColor.GRAY))
                         .append(Component.text(" §8» "))
                         .append(finalMessage);
-
 
         e.renderer(chatRenderer);
     }
