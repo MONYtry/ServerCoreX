@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static de.main.serverCoreX.commands.spawn.locationManager.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 
 public class setSpawn implements CommandExecutor {
@@ -21,7 +22,8 @@ public class setSpawn implements CommandExecutor {
 
         if (!(sender instanceof Player p))
             return true;
-
+        if (!hasPermission(p,"spawn.setspawn"))
+            return true;
         Location spawnLocation = getLocation("spawn");
 
         if (spawnLocation == null)

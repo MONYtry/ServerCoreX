@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static de.main.serverCoreX.helper.messages.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 import static de.main.serverCoreX.helper.timer.repeat;
 
 public class invseeCommand implements CommandExecutor {
@@ -31,10 +32,8 @@ public class invseeCommand implements CommandExecutor {
             return true;
         }
 
-        if (!p.hasPermission("invsee.use")) {
-            sendPlayerMessage(p, getCommandNotExist());
+        if (!hasPermission(p,"invsee.use"))
             return true;
-        }
 
         if (args.length < 1) {
             sendPlayerMessage(p, getCommandNotExist());

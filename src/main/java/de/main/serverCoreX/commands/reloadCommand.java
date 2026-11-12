@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static de.main.serverCoreX.helper.messages.*;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class reloadCommand implements CommandExecutor {
     @Override
@@ -19,11 +20,8 @@ public class reloadCommand implements CommandExecutor {
         if (!(sender instanceof Player p))
             return true;
 
-        if (!p.hasPermission("reload.use"))
-        {
-            sendPlayerMessage(p,getNoPerm());
+        if (!hasPermission(p,"reload.use"))
             return true;
-        }
 
         FileConfiguration file = getMessages();
 

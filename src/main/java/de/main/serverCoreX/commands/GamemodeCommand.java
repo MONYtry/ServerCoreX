@@ -13,6 +13,7 @@ import java.io.File;
 
 import static de.main.serverCoreX.helper.messages.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class GamemodeCommand implements CommandExecutor {
 
@@ -27,10 +28,8 @@ public class GamemodeCommand implements CommandExecutor {
             return true;
         }
 
-        if (!p.hasPermission("gamemode.use")) {
-            sendPlayerMessage(p, getCommandNotExist());
+        if (!hasPermission(p,"gamemode.use"))
             return true;
-        }
 
         if (args.length < 1) {
             sendPlayerMessage(p, getCommandNotExist());

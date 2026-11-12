@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import static de.main.serverCoreX.helper.messages.getNoPerm;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 import static de.main.serverCoreX.helper.timer.delay;
 
 public class HealCommand implements Listener {
@@ -23,13 +24,11 @@ public class HealCommand implements Listener {
 
         e.setCancelled(true);
 
-        // Permission Check
-        if (!e.getPlayer().hasPermission("heal.use")) {
-            sendPlayerMessage(e.getPlayer(),getNoPerm());
-            return;
-        }
-
         Player p = e.getPlayer();
+        // Permission Check
+        if (!hasPermission(p,"fly.use"))
+            return;
+
         if (playerCooldownList.contains(p.getUniqueId()))
         {
             sendPlayerMessage(p,"Hey du musst noch warten!");

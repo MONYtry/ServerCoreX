@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.helper.messages.*;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class tpCommand implements CommandExecutor {
 
@@ -19,11 +20,8 @@ public class tpCommand implements CommandExecutor {
         if (!(sender instanceof Player p))
             return true;
 
-        if (!p.isOp())
-        {
-            sendPlayerMessage(p,getNoPerm());
+        if (!hasPermission(p,"teleport.tp"))
             return true;
-        }
 
         if (args.length == 0)
         {

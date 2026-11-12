@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class broadcast implements CommandExecutor {
 
@@ -20,6 +21,9 @@ public class broadcast implements CommandExecutor {
             return true;
 
         if (!(sender instanceof Player p))
+            return true;
+
+        if (!hasPermission(p,"broadcast.use"))
             return true;
 
         if (args.length < 1)

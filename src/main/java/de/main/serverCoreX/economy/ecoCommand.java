@@ -13,6 +13,7 @@ import java.text.NumberFormat;
 import java.util.*;
 
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class ecoCommand implements CommandExecutor, TabCompleter {
 
@@ -38,6 +39,8 @@ public class ecoCommand implements CommandExecutor, TabCompleter {
             return true;
 
         if (!(sender instanceof Player p))
+            return true;
+        if (!hasPermission(p,"eco.use"))
             return true;
 
         if (args.length < 3)

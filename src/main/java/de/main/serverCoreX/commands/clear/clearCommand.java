@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class clearCommand implements CommandExecutor {
 
@@ -17,6 +18,9 @@ public class clearCommand implements CommandExecutor {
             return true;
 
         if (!(sender instanceof Player p))
+            return true;
+
+        if (!hasPermission(p,"clear.use"))
             return true;
 
         if (args.length == 0)

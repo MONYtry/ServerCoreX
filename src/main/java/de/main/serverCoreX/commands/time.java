@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class time implements CommandExecutor, TabCompleter {
 
@@ -32,7 +33,8 @@ public class time implements CommandExecutor, TabCompleter {
 
         if (!(sender instanceof Player p))
             return true;
-
+        if (!hasPermission(p,"time.use"))
+            return true;
         World world = p.getWorld();
         if (args.length == 0)
         {

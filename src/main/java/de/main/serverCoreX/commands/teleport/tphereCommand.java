@@ -10,6 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.helper.messages.*;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class tphereCommand implements CommandExecutor {
 
@@ -21,7 +22,8 @@ public class tphereCommand implements CommandExecutor {
         if (!(sender instanceof Player p))
             return true;
 
-
+        if (!hasPermission(p,"teleport.tphere"))
+            return true;
 
         if (args.length == 0)
         {
@@ -46,7 +48,7 @@ public class tphereCommand implements CommandExecutor {
             }
 
             // Falls Spieler Bypass hat
-            if (p.isOp())
+            if (hasPermission(p,"teleport.bypass"))
             {
                 partner.teleport(p);
                 return true;

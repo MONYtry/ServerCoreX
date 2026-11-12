@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.commands.spawn.locationManager.getLocation;
 import static de.main.serverCoreX.commands.spawn.locationManager.saveLocation;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class delSpawn implements CommandExecutor {
     @Override
@@ -16,6 +17,8 @@ public class delSpawn implements CommandExecutor {
             return true;
 
         if (!(sender instanceof Player p))
+            return true;
+        if (!hasPermission(p,"spawn.delspawn"))
             return true;
 
         Location spawnLocation = getLocation("spawn");

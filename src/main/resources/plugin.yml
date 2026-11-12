@@ -135,7 +135,6 @@ commands:
     description: "Clears the inventory of a player"
 
 
-
 permissions:
   chat.cooldown.bypass:
     default: op
@@ -170,4 +169,10 @@ permissions:
     default: op
   vanish.see:
     description: "Shows player in Vanish"
+    default: op
+  clear.use:
+    default: op
+  eco.use:
+    default: op
+  money.use:
     default: op

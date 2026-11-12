@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.commands.spawn.locationManager.getLocation;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class spawn implements CommandExecutor {
 
@@ -18,6 +19,10 @@ public class spawn implements CommandExecutor {
 
         if (!(sender instanceof Player p))
             return true;
+
+        if (!hasPermission(p,"spawn.use"))
+            return true;
+
         Location spawnLocation = getLocation("spawn");
 
         if (spawnLocation == null)

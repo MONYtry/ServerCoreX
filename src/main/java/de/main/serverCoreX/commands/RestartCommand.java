@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import static de.main.serverCoreX.helper.messages.*;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class RestartCommand implements Listener {
 
@@ -31,11 +32,8 @@ public class RestartCommand implements Listener {
 
         Player p = e.getPlayer();
 
-        if (!p.hasPermission("serverrestart.use"))
-        {
-            sendPlayerMessage(p,getNoPerm());
+        if (!hasPermission(p,"serverrestart.use"))
             return;
-        }
 
         e.setCancelled(true);
 

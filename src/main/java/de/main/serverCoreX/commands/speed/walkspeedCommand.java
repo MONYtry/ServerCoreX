@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import static de.main.serverCoreX.helper.messages.getNoPerm;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class walkspeedCommand implements CommandExecutor, TabCompleter {
 
@@ -31,12 +32,8 @@ public class walkspeedCommand implements CommandExecutor, TabCompleter {
         if (!(sender instanceof Player p))
             return true;
 
-        String perm = "walkspeed.use";
-        if (!p.hasPermission(perm))
-        {
-            sendPlayerMessage(p,getNoPerm());
+        if (!hasPermission(p,"walkspeed.use"))
             return true;
-        }
 
         if (args.length != 1) {
             sendPlayerMessage(p,"§7Hey, deine §eEingabe §7ist §eungültig! §7(Nutze /size 1.5)");

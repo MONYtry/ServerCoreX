@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class moneyCommand implements CommandExecutor {
 
@@ -23,6 +24,8 @@ public class moneyCommand implements CommandExecutor {
         if (!(sender instanceof Player p))
             return true;
 
+        if (!hasPermission(p,"money.use"))
+            return true;
 
         if (args.length == 0)
         {

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static de.main.serverCoreX.helper.messages.getNoPerm;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class sizeCommand implements CommandExecutor {
 
@@ -19,12 +20,8 @@ public class sizeCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         if (command.getName().equalsIgnoreCase("size") && sender instanceof Player p)
         {
-            String perm = "size.use";
-            if (!p.hasPermission(perm))
-            {
-                sendPlayerMessage(p,getNoPerm());
+            if (!hasPermission(p,"size.use"))
                 return true;
-            }
 
             if (args.length != 1) {
                 sendPlayerMessage(p,"§7Hey, deine §eEingabe §7ist §eungültig! §7(Nutze /size 1.5)");

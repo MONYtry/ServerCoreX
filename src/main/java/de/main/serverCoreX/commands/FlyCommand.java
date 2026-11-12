@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import static de.main.serverCoreX.helper.messages.*;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class FlyCommand implements CommandExecutor {
 
@@ -17,11 +18,8 @@ public class FlyCommand implements CommandExecutor {
         if (!(sender instanceof Player p))
             return true;
 
-        if (!p.hasPermission("fly.use"))
-        {
-            sendPlayerMessage(p,getCommandNotExist());
+        if (!hasPermission(p,"fly.use"))
             return true;
-        }
 
         if (p.getAllowFlight())
         {
