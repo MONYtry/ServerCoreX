@@ -12,6 +12,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collections;
 import java.util.List;
 import static de.main.serverCoreX.helper.messages.getPrefix;
@@ -23,7 +25,7 @@ public class bankListener implements Listener {
     public void onInventoryClick(InventoryClickEvent e)
     {
         String titel = e.getView().getTitle();
-        if (!titel.equalsIgnoreCase(getPrefix() + "§cBank"))
+        if (!titel.equalsIgnoreCase(getPrefix() + "§eBank"))
             return;
 
         e.setCancelled(true);
@@ -46,18 +48,14 @@ public class bankListener implements Listener {
         switch (action.toLowerCase())
         {
             case "auszahlen":
-                // RTP in overworld
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_IRON_XYLOPHONE,1,1);
                 p.closeInventory();
-                sendPlayerMessage(p,"Auszahlen...");
                 openAmountInput(p,action);
                 break;
 
             case "einzahlen":
-                // RTP in overworld
                 p.closeInventory();
                 p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL,1,1);
-                sendPlayerMessage(p,"Einzahlen...");
                 openAmountInput(p,action);
                 break;
 
@@ -70,6 +68,12 @@ public class bankListener implements Listener {
 
     private void openAmountInput(Player p, String action)
     {
+        String color = "§7";
+        if (action.equalsIgnoreCase("einzahlen"))
+            color = "§a";
+        else
+            color = "§c";
+
         // Erstellt eine AnvilGUI mit einem Onclick Event
         new AnvilGUI.Builder().onClick((slot, stateSnapshot) -> {
 
@@ -81,8 +85,6 @@ public class bankListener implements Listener {
             String text = stateSnapshot.getText();
 
             double amount;
-
-            // Macht einen Double aus der Eingabe
             try
             {
                 amount = Double.parseDouble(text);
@@ -98,33 +100,47 @@ public class bankListener implements Listener {
                 return List.of(AnvilGUI.ResponseAction.run(() -> sendPlayerMessage(p, "§cDer Betrag muss größer als 0 sein!")));
             }
 
-            if (action.equalsIgnoreCase("einzahlen"))
-            {
-                if (!EconomyManager.removeFromBalance(p.getUniqueId(),amount))
-                    return List.of(AnvilGUI.ResponseAction.run(() -> {
-                        sendPlayerMessage(p, "§cDein Guthaben reicht nicht aus!");
-                        p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
-                    }));
-
-                sendPlayerMessage(p, "§7Du hast erfolgreich §e" + amount + "$ §7eingezahlt");
-                EconomyManager.addOnlineBalance(p.getUniqueId(), amount);
-            }
-
-            else if (action.equalsIgnoreCase("auszahlen"))
-            {
-                if (!EconomyManager.removeFromOnlineBalance(p.getUniqueId(), amount))
-                    return List.of(AnvilGUI.ResponseAction.run(() -> {
-                        sendPlayerMessage(p, "§cDein Guthaben reicht nicht aus!");
-                        p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
-                    }));
-
-                EconomyManager.addBalance(p.getUniqueId(),amount);
-                sendPlayerMessage(p, "§7Du hast erfolgreich §e" + amount + "$ §7abgehoben");
-            }
-
+            // Verarbeitet die Action (Ein/-Auszahlen)
+            handleInput(action,p,amount);
 
             return List.of(AnvilGUI.ResponseAction.run(() -> {p.closeInventory();}), AnvilGUI.ResponseAction.close());
 
-        }).text("Betrag eingeben").title("§cBank").plugin(ServerCoreX.getInstance()).open(p);
+        }).text("Betrag eingeben").title("§eBank §8» §7" + color + action.toUpperCase()).plugin(ServerCoreX.getInstance()).open(p);
+    }
+
+    private List<AnvilGUI.@NotNull ResponseAction> handleInput(String action, Player p, double amount)
+    {
+       if (action.equalsIgnoreCase("auszahlen"))
+       {
+           // Falls nicht genug Guthaben vorhanden ist, abbruch
+           if (!EconomyManager.removeFromOnlineBalance(p.getUniqueId(), amount))
+            return List.of(AnvilGUI.ResponseAction.run(() ->
+            {
+                handleNotEnoughBalance(p);
+            }));
+           EconomyManager.addBalance(p.getUniqueId(),amount);
+           sendPlayerMessage(p, "§7Du hast erfolgreich §e" + amount + "$ §7abgehoben");
+       }
+
+       else if (action.equalsIgnoreCase("einzahlen"))
+       {
+            // Falls nicht genug Guthaben vorhanden ist, abbruch
+            if (!EconomyManager.removeFromBalance(p.getUniqueId(), amount))
+                return List.of(AnvilGUI.ResponseAction.run(() ->
+                {
+                    handleNotEnoughBalance(p);
+                }));
+
+            EconomyManager.addOnlineBalance(p.getUniqueId(),amount);
+            sendPlayerMessage(p, "§7Du hast erfolgreich §e" + amount + "$ §7eingezahlt");
+       }
+
+        return null;
+    }
+
+    private void handleNotEnoughBalance(Player p)
+    {
+        sendPlayerMessage(p, "§7Dein §eGuthaben §7reicht §enicht §7aus!");
+        p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1, 1);
     }
 }

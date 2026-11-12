@@ -71,12 +71,12 @@ public class ecoCommand implements CommandExecutor, TabCompleter {
         {
             case "set":
                 EconomyManager.setBalance(uuid, amount);
-                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde auf §e" + formattedAmount + " §7gesetzt");
+                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde auf §e" + formattedAmount + "$ §7gesetzt");
             break;
 
             case "give":
                 EconomyManager.addBalance(uuid, amount);
-                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde um §e" + formattedAmount + " §7erhöht");
+                sendPlayerMessage(p, "§7Das §eKonto §7des §7Spielers §e" + target.getName() + " §7wurde um §e" + formattedAmount + "$ §7erhöht");
             break;
 
             case "take":
@@ -85,7 +85,7 @@ public class ecoCommand implements CommandExecutor, TabCompleter {
                     sendPlayerMessage(p, "§7Das Guthaben des Spielers §e" + target.getName() + " §7reicht nicht aus!");
                     return true;
                 }
-                sendPlayerMessage(p, "§7Es wurden §e" + formattedAmount + " §7von dem §eGuthaben §7des Spielers §e" + p.getName() + " §7entfernt!");
+                sendPlayerMessage(p, "§7Es wurden §e" + formattedAmount + "$ §7von dem §eGuthaben §7des Spielers §e" + p.getName() + " §7entfernt!");
             break;
         }
         return true;

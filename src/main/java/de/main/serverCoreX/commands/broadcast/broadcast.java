@@ -158,7 +158,7 @@ public class broadcast implements CommandExecutor {
 
         for (Player target : Bukkit.getOnlinePlayers())
         {
-            target.showTitle(Title.title(message,Component.text("§fWichtige Ankündigung von §b" + p.getName())));
+            target.showTitle(Title.title(message,Component.text("§fWichtige Ankündigung von §b@" + p.getName())));
         }
     }
 }

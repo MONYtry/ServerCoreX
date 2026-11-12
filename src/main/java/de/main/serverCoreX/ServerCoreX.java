@@ -28,6 +28,7 @@
     import de.main.serverCoreX.economy.VaultHook;
     import de.main.serverCoreX.economy.bank.bankCommand;
     import de.main.serverCoreX.economy.bank.bankListener;
+    import de.main.serverCoreX.economy.bank.moneyCommand;
     import de.main.serverCoreX.economy.ecoCommand;
     import de.main.serverCoreX.economy.payCommand;
     import de.main.serverCoreX.listener.joinLeave.joinListener;
@@ -89,6 +90,7 @@
             Bukkit.getPluginManager().registerEvents(new invseeListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
+            getCommand("money").setExecutor(new moneyCommand());
             getCommand("clear").setExecutor(new clearCommand());
             getCommand("belohnung").setExecutor(new belohnungCommand());
             getCommand("daily").setExecutor(new dailyCommand());

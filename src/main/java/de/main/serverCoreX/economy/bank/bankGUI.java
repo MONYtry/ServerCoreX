@@ -13,7 +13,7 @@ public class bankGUI {
 
     public static void createBankGUI(Player p)
     {
-        Inventory inv = Bukkit.createInventory(null,45,getPrefix() + "§cBank");
+        Inventory inv = Bukkit.createInventory(null,45,getPrefix() + "§eBank");
         FileConfiguration file = ServerCoreX.getInstance().bank;
 
         autoGenItemsWithConfigGUI(inv, file,p);

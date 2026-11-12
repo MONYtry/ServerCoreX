@@ -9,9 +9,10 @@ commands:
   fly:
     usage: fly
     description: "Use it to fly around your Server"
+
   broadcast:
     usage: broadcast
-    description: "Broadcast"
+    description: "Sends an titel to every player"
 
   gm:
     usage: gm
@@ -20,65 +21,66 @@ commands:
       - gamemode
   tpa:
     usage: tpa
-    description: "Use it to change the gamemode of an player"
+    description: "Sends a teleport-request"
 
   tpyes:
     usage: tpyes
-    description: "Use it to change the gamemode of an player"
+    description: "Accepts a teleport-request"
     aliases:
       - tpaccept
 
   tp:
     usage: tp
-    description: "Use it to change the gamemode of an player"
+    description: "Teleports instantly"
 
   tphere:
     usage: tphere
-    description: "Use it to change the gamemode of an player"
+    description: "Sends a teleport-here-request"
 
   discord:
     usage: discord
-    description: "Use it to change the gamemode of an player"
+    description: "Sends the Discord-Invite"
     aliases:
       - dc
 
   spawn:
     usage: spawn
-    description: "Use it to change the gamemode of an player"
+    description: "Teleports to spawn"
 
   setspawn:
     usage: setspawn
-    description: "Setzt den Spawn"
+    description: "Sets the spawn"
 
   delspawn:
     usage: delspawn
-    description: "Setzt den Spawn"
+    description: "Deletes the spawn"
 
   reload:
     usage: reload
-    description: "Läd das Plugin inkl. Konfiguration neu!"
+    description: "Reloads the Configuration Files of the plugin"
 
   setweather:
     usage: setweather
-    description: "Ändert das Wetter"
+    description: "Sets the weather in the current world"
 
   settime:
     usage: settime
-    description: "Setzt die Uhrzeit"
+    description: "Sets the time in the current world"
 
   clearchat:
     usage: clearchat
     description: "Clears the Chat"
     aliases:
       - cc
+
   invsee:
     usage: invsee
-    description: "invsee"
+    description: "Shows an inventory from a player"
 
 
   rtp:
     usage: rtp
-    description: "Setzt die Uhrzeit"
+    description: "Random teleport"
     aliases:
       - farmwelt
       - farm
@@ -86,46 +88,54 @@ commands:
 
   vanish:
     usage: vanish
-    description: "Setzt User in den Vanish"
+    description: "Vanishes a player"
     aliases:
       - v
 
   size:
     usage: size
-    description: "Verändert deine Größe"
+    description: "Changes the size of an player"
 
   eco:
     usage: eco
-    description: "Geld verwaltung!"
+    description: "Money-System"
 
   bank:
     usage: bank
-    description: "bank"
+    description: "Opens the bank"
 
   belohnung:
     usage: belohnung
-    description: "Holt die Belohngung ab"
+    description: "Claims the 30min reward"
 
   pay:
     usage: pay
-    description: "Nutzen von Geld payn"
+    description: "Use it to pay other player"
 
   daily:
     usage: daily
-    description: "Einsammeln von täglicher Belohnung"
+    description: "Claims the 24hrs reward"
     aliases:
       - täglichebelohnung
 
+  money:
+    usage: money
+    description: "Displays money of an player"
+
   walkspeed:
     usage: walkspeed
-    description: "Verändert deine Lauf-Geschwindigkeit"
+    description: "Changes the walk-speed"
 
   flyspeed:
     usage: flyspeed
-    description: "Verändert deine Lauf-Geschwindigkeit"
+    description: "Changes the walk-speed"
+
   clear:
     usage: clear
-    description: "clear"
+    description: "Clears the inventory of a player"
+
+
+
 permissions:
   chat.cooldown.bypass:
     default: op
