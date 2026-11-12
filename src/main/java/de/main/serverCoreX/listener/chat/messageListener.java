@@ -4,6 +4,7 @@ import de.main.serverCoreX.ServerCoreX;
 import io.papermc.paper.chat.ChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -15,6 +16,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
+
+import java.util.Set;
 
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 import static de.main.serverCoreX.helper.timer.delay;
@@ -49,19 +53,17 @@ public class messageListener implements Listener {
         User user = luckPerms.getPlayerAdapter(Player.class).getUser(p);
 
         String rang = user.getPrimaryGroup().toLowerCase();
-        handleImportantMessage(rang);
+
 
         if (!rawMessage.contains("&"))
         {
-            Component finalMessage = e.message();
-            ChatRenderer chatRenderer = (source, sourceDisplayName, originalMessage, viewer) ->
-                    Component.empty()
-                            .append(Component.text(prefix + " §8| "))
-                            .append(sourceDisplayName.color(NamedTextColor.GRAY))
-                            .append(Component.text(" §8» "))
-                            .append(finalMessage.color(NamedTextColor.GRAY));
+            Component finalMessage = Component.empty()
+                    .append(Component.text(prefix + " §8| "))
+                    .append(p.displayName().color(NamedTextColor.GRAY))
+                    .append(Component.text(" §8» "))
+                    .append(e.message().color(NamedTextColor.GRAY));
 
-            e.renderer(chatRenderer);
+            sendChatMessage(e,finalMessage,rang);
             return;
         }
 
@@ -190,42 +192,48 @@ public class messageListener implements Listener {
             message = message.append(part);
         }
 
-        Component finalMessage = message;
-        ChatRenderer chatRenderer = (source, sourceDisplayName, originalMessage, viewer) ->
-        Component.empty()
-                        .append(Component.text(prefix + " §8| "))
-                        .append(sourceDisplayName.color(NamedTextColor.GRAY))
-                        .append(Component.text(" §8» "))
-                        .append(finalMessage);
 
-        e.renderer(chatRenderer);
+        Component formattedMessage = Component.empty()
+                .append(Component.text(prefix + " §8| "))
+                .append(p.displayName().color(NamedTextColor.GRAY))
+                .append(Component.text(" §8» "))
+                .append(message);
+
+        sendChatMessage(e, formattedMessage,rang);
     }
 
 
-    private void handleImportantMessage(String rang)
-    {
+    private void sendChatMessage(AsyncChatEvent e, Component message,String rang) {
+        boolean isImportant = false;
+        e.setCancelled(true);
+        Set<Audience> viewers = Set.copyOf(e.viewers());
+
         switch (rang.toLowerCase())
         {
             case "owner", "admin":
-                sendImportantMessage();
+                isImportant = true;
                 break;
             default:
                 break;
         }
-    }
 
-    private void sendImportantMessage()
-    {
-        for (Player online : Bukkit.getOnlinePlayers())
-        {
-            online.sendMessage(Component.text("§8»"));
-        }
-
-        Bukkit.getScheduler().runTaskLater(ServerCoreX.getInstance(), () -> {
-            for (Player online : Bukkit.getOnlinePlayers())
+        boolean finalIsImportant = isImportant;
+        Bukkit.getScheduler().runTask(ServerCoreX.getInstance(), () -> {
+            if (!finalIsImportant)
             {
-                online.sendMessage(Component.text("§8»"));
+                for (Audience viewer : viewers)
+                {
+                    viewer.sendMessage(message);
+                }
+                return;
             }
-        }, 1L);
+
+            for (Audience viewer : viewers)
+            {
+                viewer.sendMessage(Component.text("§8»"));
+                viewer.sendMessage(message);
+                viewer.sendMessage(Component.text("§8»"));
+            }
+        });
     }
 }

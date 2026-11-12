@@ -62,19 +62,13 @@ public class tablist {
             p.setPlayerListOrder(i);
 
             // Erstellung der Variablen mit Config und PlaceholderAPI
-            String header = PlaceholderAPI.setPlaceholders(
-                    p, file.getString("header", "§6§lBLOCKHIVE.NET")
-            );
+            String header = PlaceholderAPI.setPlaceholders(p, file.getString("header", "§6§lBLOCKHIVE.NET"));
 
-            String footer = PlaceholderAPI.setPlaceholders(
-                    p, file.getString("footer", "§7Online: §e%online% §8| §7Website: §eBLOCKHIVE.INFO")
-            );
+            String footer = PlaceholderAPI.setPlaceholders(p, file.getString("footer", "§7Online: §e%online% §8| §7Website: §eBLOCKHIVE.INFO"));
 
             footer = footer.replace("%online%", String.valueOf(getOnlinePlayers));
 
-            String tabName = PlaceholderAPI.setPlaceholders(
-                    p, file.getString("tab-name", "%luckperms_prefix% §7| §f%player_name%")
-            );
+            String tabName = PlaceholderAPI.setPlaceholders(p, file.getString("tab-name", "%luckperms_prefix% §7| §f%player_name%"));
 
             // Setzt die Tablist
             p.setPlayerListName(tabName);
