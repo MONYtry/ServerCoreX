@@ -5,6 +5,7 @@ api-version: '1.21'
 depend: [PlaceholderAPI, ProtocolLib, LuckPerms]
 softdepend:
   - Vault
+
 commands:
   fly:
     usage: fly
@@ -13,6 +14,8 @@ commands:
   broadcast:
     usage: broadcast
     description: "Sends an titel to every player"
+  itemedit:
+    usage: itemedit
 
   gm:
     usage: gm
@@ -76,7 +79,6 @@ commands:
   invsee:
     usage: invsee
     description: "Shows an inventory from a player"
-
 
   rtp:
     usage: rtp

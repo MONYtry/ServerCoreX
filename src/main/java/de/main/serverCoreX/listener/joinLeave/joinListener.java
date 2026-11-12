@@ -1,7 +1,9 @@
 package de.main.serverCoreX.listener.joinLeave;
 
 import de.main.serverCoreX.ServerCoreX;
+import de.main.serverCoreX.prefix;
 import de.main.serverCoreX.scoreboard.ScoardboardManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -12,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import static de.main.serverCoreX.commands.vanish.vanish.handleVanishOnJoin;
 import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.kit.kit.giveKit;
+
 
 public class joinListener implements Listener {
 
@@ -35,6 +38,11 @@ public class joinListener implements Listener {
         ScoardboardManager.createScoreboard(p);
         giveKit(p);
         handleVanishOnJoin(p);
+
+        for (Player viewer : Bukkit.getOnlinePlayers()) {
+            new prefix().applyPrefix(viewer);
+        }
+
         ServerCoreX.getInstance().economyManager.createAccount(p.getUniqueId());
     }
 

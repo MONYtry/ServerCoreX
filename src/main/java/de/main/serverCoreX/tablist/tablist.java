@@ -78,6 +78,7 @@ public class tablist {
                     Component.text(header),
                     Component.text(footer)
             );
+
         }
     }
 }

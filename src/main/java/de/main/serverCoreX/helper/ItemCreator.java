@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 import java.util.UUID;
@@ -94,6 +95,24 @@ public class ItemCreator {
                         PersistentDataType.STRING,
                         action
                 );
+            }
+
+            boolean customModelData = cfg.getBoolean(path + ".UseCustomModel");
+            if (customModelData)
+            {
+                String rawModel = cfg.getString(path + ".customModelName");
+                String[] modelFinal = rawModel.split(" ");
+
+                if (rawModel.isEmpty() || modelFinal[0] == null || modelFinal[1] == null)
+                    continue;
+
+                // Deine Item-Definition
+                meta.setItemModel(NamespacedKey.fromString(modelFinal[0]));
+
+                // Custom Model Data
+                CustomModelDataComponent data = meta.getCustomModelDataComponent();
+                data.setStrings(List.of(modelFinal[1]));
+                meta.setCustomModelDataComponent(data);
             }
 
             item.setItemMeta(meta);

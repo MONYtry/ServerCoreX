@@ -20,6 +20,14 @@ items:
       - "§eKlicke hier§7, und zahle"
       - "§7dein §eGeld §7aus der §eBank §7aus!"
     action: "auszahlen"
+    UseCustomModel: true
+
+    # Explaination for the Custom-Model configuration
+    # First step is to enable UseCustomModel
+    # Then type in the pack name MyTexturePack/assets/<packname>
+    # Now you need to add the model name
+    # At last you need to give in what custom model data it should get
+    customModelName: "kasai:hearth_model bat"
 
   end:
     material: BOOK
