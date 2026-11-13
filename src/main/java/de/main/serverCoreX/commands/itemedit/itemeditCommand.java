@@ -84,7 +84,7 @@ public class itemeditCommand implements CommandExecutor {
                     return;
                 }
 
-                if (loreSet(text, args[3], p.getInventory().getItemInMainHand()))
+                if (loreSet(text, p.getInventory().getItemInMainHand()))
                     sendPlayerMessage(p, "§aLore erfolgreich geändert!");
                 else
                     sendPlayerMessage(p, "§cLore konnte nicht geändert werden!");
@@ -106,7 +106,7 @@ public class itemeditCommand implements CommandExecutor {
         switch (args[1].toLowerCase())
         {
             case "lore":
-                loreClear(p,args);
+                loreClear(p);
                 break;
             case "displayname":
                 clearDisplayname(p);

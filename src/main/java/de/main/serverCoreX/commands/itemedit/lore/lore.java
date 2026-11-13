@@ -37,31 +37,37 @@ public class lore {
     }
 
 
-    public static boolean loreSet(String newLine, String rawIndex, ItemStack item)
+    public static boolean loreSet(String newLine, ItemStack item)
     {
         if (item == null || item.getType().isAir())
             return false;
 
         int index;
+        // Splitted nach einer Leertaste, es dürfen maximal 2 Teile gemacht werden
+        String[] rawIndex = newLine.split(" ",2);
 
         try {
-            index = Integer.parseInt(rawIndex);
+            // Replaced das line mit nichts, -1 um ein angenehmeres Bedienungs-Gefühl zu erhalten
+            index = Integer.parseInt(rawIndex[0].replace("line", "")) - 1;
         } catch (NumberFormatException e) {
             return false;
         }
 
-        List<String> lore = item.getLore();
+        ItemMeta meta = item.getItemMeta();
+
+        List<Component> lore = meta.lore();
 
         if (lore == null || index < 0 || index >= lore.size())
             lore = new ArrayList<>();
 
-        lore.set(index, newLine);
-        item.setLore(lore);
+        Component formattedLine = handleColor(newLine);
+        lore.set(index, formattedLine);
 
+        meta.lore(lore);
         return true;
     }
 
-    public static void loreClear(Player p, String[] args)
+    public static void loreClear(Player p)
     {
         ItemStack itemStack = p.getInventory().getItemInMainHand();
 
