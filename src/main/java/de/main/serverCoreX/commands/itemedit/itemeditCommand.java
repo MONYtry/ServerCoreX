@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.main.serverCoreX.commands.itemedit.lore.lore.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
 public class itemeditCommand implements CommandExecutor {
@@ -29,8 +30,11 @@ public class itemeditCommand implements CommandExecutor {
 
         switch (args[0].toLowerCase())
         {
-            case "lore":
-                handleLoreEdit(args,p);
+            case "set":
+                handleSet(args,p);
+                break;
+            case "add":
+                handleAdd(args,p);
                 break;
             default:
                 sendPlayerMessage(p,"Nicht gefunden!");
@@ -39,40 +43,25 @@ public class itemeditCommand implements CommandExecutor {
         return true;
     }
 
-    private void handleLoreEdit(String[] args,Player p)
+    private void handleAdd(String[] args,Player p)
     {
-        switch (args[1].toString().toLowerCase())
+        switch (args[1].toLowerCase())
         {
-            case "add":
-                if (args[2] == null)
-                {
-                    p.sendMessage("Fehler du hast keine neue Lore angegebn!");
-                    return;
-                }
-                if (p.getInventory().getItemInMainHand().isEmpty())
-                {
-                    sendPlayerMessage(p,"§cDu hast kein Item in der Hand");
-                    return;
-                }
+            case "lore":
+                if (loreAdd(args[2],p.getInventory().getItemInMainHand()))
+                    sendPlayerMessage(p,"Erfolgreich lore hinzugefügt");
+                break;
 
-                ItemStack itemStack = p.getInventory().getItemInMainHand();
+        }
+    }
 
-                // Holt sich die Eingabe des Nutzers
-                String newLine = args[2];
-
-                // Holt sich die bereits gesetze Lore
-                List<String> lore = itemStack.getLore();
-
-                // Falls keine Lore existiert, erstellt eine
-                if (lore == null)
-                {
-                    lore = new ArrayList<>();
-                }
-                lore.add(newLine);
-
-                // Fügt die Lore hinzu
-                itemStack.setLore(lore);
-                p.sendMessage("Lore wurde hinzugefügt!");
+    private void handleSet(String[] args,Player p)
+    {
+        switch (args[1].toLowerCase())
+        {
+            case "lore":
+                loreSet(args[2],args[3],p.getInventory().getItemInMainHand());
+                break;
         }
     }
 }
