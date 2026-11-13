@@ -4,12 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import static de.main.serverCoreX.commands.itemedit.displayname.displayname.clearDisplayname;
+import static de.main.serverCoreX.commands.itemedit.displayname.displayname.setDisplayname;
 import static de.main.serverCoreX.commands.itemedit.lore.lore.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
@@ -36,6 +34,9 @@ public class itemeditCommand implements CommandExecutor {
             case "add":
                 handleAdd(args,p);
                 break;
+            case "clear":
+                handleClear(args,p);
+                break;
             default:
                 sendPlayerMessage(p,"Nicht gefunden!");
                 break;
@@ -43,25 +44,74 @@ public class itemeditCommand implements CommandExecutor {
         return true;
     }
 
-    private void handleAdd(String[] args,Player p)
+
+    private void handleAdd(String[] args, Player p)
     {
+        if (args.length < 3) {
+            sendPlayerMessage(p, "§cNutze: /itemedit add lore <Text>");
+            return;
+        }
+        String text = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
+
         switch (args[1].toLowerCase())
         {
             case "lore":
-                if (loreAdd(args[2],p.getInventory().getItemInMainHand()))
-                    sendPlayerMessage(p,"Erfolgreich lore hinzugefügt");
+                if (loreAdd(text, p.getInventory().getItemInMainHand()))
+                    sendPlayerMessage(p, "§aErfolgreich Lore hinzugefügt!");
+                else
+                    sendPlayerMessage(p, "§cDu musst ein Item in der Hand halten!");
                 break;
 
+            default:
+                sendPlayerMessage(p, "§cUnbekannter Typ!");
+                break;
         }
     }
 
-    private void handleSet(String[] args,Player p)
+    private void handleSet(String[] args, Player p)
     {
+        if (args.length < 1) {
+            sendPlayerMessage(p, "§cNutze: /itemedit set <attribute>");
+            return;
+        }
+        String text = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
+
         switch (args[1].toLowerCase())
         {
             case "lore":
-                loreSet(args[2],args[3],p.getInventory().getItemInMainHand());
+                if (args.length < 4) {
+                    sendPlayerMessage(p, "§cNutze: /itemedit set <attribute> <Text> <Index>");
+                    return;
+                }
+
+                if (loreSet(text, args[3], p.getInventory().getItemInMainHand()))
+                    sendPlayerMessage(p, "§aLore erfolgreich geändert!");
+                else
+                    sendPlayerMessage(p, "§cLore konnte nicht geändert werden!");
+                break;
+
+            case "displayname":
+                setDisplayname(p,text);
                 break;
         }
     }
+
+    private void handleClear(String[] args, Player p)
+    {
+        if (args.length < 1) {
+            sendPlayerMessage(p, "§cNutze: /itemedit clear <attribute>");
+            return;
+        }
+
+        switch (args[1].toLowerCase())
+        {
+            case "lore":
+                loreClear(p,args);
+                break;
+            case "displayname":
+                clearDisplayname(p);
+                break;
+        }
+    }
+
 }

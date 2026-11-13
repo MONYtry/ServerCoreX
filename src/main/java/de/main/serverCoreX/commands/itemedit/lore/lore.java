@@ -1,56 +1,77 @@
+
 package de.main.serverCoreX.commands.itemedit.lore;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.main.serverCoreX.helper.colorMessage.handleColor;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
 public class lore {
 
-    public static boolean loreAdd(String newLine,ItemStack item)
+    public static boolean loreAdd(String newLine, ItemStack item)
     {
-        if (item == null)
+        if (item == null || item.getType().isAir())
             return false;
 
-        // Holt sich die bereits gesetze Lore
-        List<String> lore = item.getLore();
+        ItemMeta meta = item.getItemMeta();
 
-        // Falls keine Lore existiert, erstellt eine
+        List<Component> lore = meta.lore();
+
         if (lore == null)
-        {
             lore = new ArrayList<>();
-        }
-        lore.add(newLine);
 
-        // Fügt die Lore hinzu
-        item.setLore(lore);
+        Component formattedLine = handleColor(newLine);
+
+        lore.add(formattedLine);
+
+        meta.lore(lore);
+        item.setItemMeta(meta);
+
         return true;
     }
 
-    public static boolean loreSet(String newLine,String rawIndex,ItemStack item)
+
+    public static boolean loreSet(String newLine, String rawIndex, ItemStack item)
     {
-        if (item == null)
+        if (item == null || item.getType().isAir())
             return false;
-        int index = 0;
+
+        int index;
+
         try {
             index = Integer.parseInt(rawIndex);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            return false;
         }
 
-        // Holt sich die bereits gesetze Lore
         List<String> lore = item.getLore();
 
-        // Falls keine Lore existiert, erstellt eine
-        if (lore == null)
-        {
+        if (lore == null || index < 0 || index >= lore.size())
             lore = new ArrayList<>();
-        }
-        lore.set(index,newLine);
 
-        // Fügt die Lore hinzu
+        lore.set(index, newLine);
         item.setLore(lore);
+
         return true;
     }
+
+    public static void loreClear(Player p, String[] args)
+    {
+        ItemStack itemStack = p.getInventory().getItemInMainHand();
+
+        if (itemStack == null)
+            return;
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setLore(null);
+        itemStack.setItemMeta(itemMeta);
+        sendPlayerMessage(p, "§aLore wurde erfolgreich §cgelöscht!");
+    }
+
 }
