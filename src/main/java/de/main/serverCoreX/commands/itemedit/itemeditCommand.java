@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static de.main.serverCoreX.commands.itemedit.displayname.displayname.clearDisplayname;
 import static de.main.serverCoreX.commands.itemedit.displayname.displayname.setDisplayname;
+import static de.main.serverCoreX.commands.itemedit.enchantment.addEnchantment;
 import static de.main.serverCoreX.commands.itemedit.lore.lore.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
@@ -47,19 +48,26 @@ public class itemeditCommand implements CommandExecutor {
 
     private void handleAdd(String[] args, Player p)
     {
-        if (args.length < 3) {
-            sendPlayerMessage(p, "§cNutze: /itemedit add lore <Text>");
-            return;
-        }
-        String text = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
-
         switch (args[1].toLowerCase())
         {
             case "lore":
+                if (args.length < 3) {
+                    sendPlayerMessage(p, "§cNutze: /itemedit add lore <Text>");
+                    return;
+                }
+                String text = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
+
                 if (loreAdd(text, p.getInventory().getItemInMainHand()))
                     sendPlayerMessage(p, "§aErfolgreich Lore hinzugefügt!");
                 else
                     sendPlayerMessage(p, "§cDu musst ein Item in der Hand halten!");
+                break;
+
+            case "enchantment":
+                String level = "1";
+                if (!args[3].isEmpty() || args[3] != null)
+                    level = args[3];
+                addEnchantment(args[2],level,p);
                 break;
 
             default:

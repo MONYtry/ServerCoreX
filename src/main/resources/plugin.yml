@@ -25,6 +25,9 @@ commands:
   tpa:
     usage: tpa
     description: "Sends a teleport-request"
+  sign:
+    usage: sign
+    description: "Adds a signature"
 
   tpyes:
     usage: tpyes

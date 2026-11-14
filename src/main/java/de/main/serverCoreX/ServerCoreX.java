@@ -13,6 +13,7 @@
     import de.main.serverCoreX.commands.rtp.rtpCommand;
     import de.main.serverCoreX.commands.rtp.rtpListener;
     import de.main.serverCoreX.commands.rtp.spawnProtection;
+    import de.main.serverCoreX.commands.sign.signCommand;
     import de.main.serverCoreX.commands.spawn.delSpawn;
     import de.main.serverCoreX.commands.spawn.setSpawn;
     import de.main.serverCoreX.commands.spawn.spawn;
@@ -102,6 +103,7 @@
             getCommand("rtp").setExecutor(new rtpCommand());
             getCommand("vanish").setExecutor(new vanish());
             getCommand("reload").setExecutor(new reloadCommand());
+            getCommand("sign").setExecutor(new signCommand());
 
             weather weatherCommand = new weather();
             getCommand("setweather").setExecutor(weatherCommand);
