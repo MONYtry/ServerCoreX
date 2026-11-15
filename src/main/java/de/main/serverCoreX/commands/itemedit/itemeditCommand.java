@@ -4,6 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import static de.main.serverCoreX.commands.itemedit.displayname.displayname.clearDisplayname;
@@ -82,7 +84,6 @@ public class itemeditCommand implements CommandExecutor {
             sendPlayerMessage(p, "§cNutze: /itemedit set <attribute>");
             return;
         }
-        String text = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
 
         switch (args[1].toLowerCase())
         {
@@ -91,6 +92,7 @@ public class itemeditCommand implements CommandExecutor {
                     sendPlayerMessage(p, "§cNutze: /itemedit set <attribute> <Text> <Index>");
                     return;
                 }
+                String text = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
 
                 if (loreSet(text, p.getInventory().getItemInMainHand()))
                     sendPlayerMessage(p, "§aLore erfolgreich geändert!");
@@ -98,8 +100,24 @@ public class itemeditCommand implements CommandExecutor {
                     sendPlayerMessage(p, "§cLore konnte nicht geändert werden!");
                 break;
 
+            case "infinity":
+                ItemStack item = p.getInventory().getItemInMainHand();
+                ItemMeta meta = item.getItemMeta();
+                if (meta == null)
+                    return;
+
+                if (meta.isUnbreakable())
+                    meta.setUnbreakable(false);
+                else
+                    meta.setUnbreakable(true);
+
+                item.setItemMeta(meta);
+                sendPlayerMessage(p,"§7Die §eUnzerstörbarkeit §7wurde auf §e" + meta.isUnbreakable() + " §7gesetzt");
+                break;
+
             case "displayname":
-                setDisplayname(p,text);
+                String name = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
+                setDisplayname(p,name);
                 break;
         }
     }
