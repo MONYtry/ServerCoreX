@@ -28,7 +28,9 @@ commands:
   sign:
     usage: sign
     description: "Adds a signature"
-
+  settings:
+    usage: settings
+    description: "settings"
   tpyes:
     usage: tpyes
     description: "Accepts a teleport-request"

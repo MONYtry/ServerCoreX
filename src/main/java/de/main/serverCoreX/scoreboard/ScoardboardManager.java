@@ -3,13 +3,14 @@ package de.main.serverCoreX.scoreboard;
 import org.bukkit.Bukkit;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.key.Key;
 
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
-import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 import static de.main.serverCoreX.helper.timer.repeat;
+
+import static de.main.serverCoreX.scoreboard.ScoreboardSettings.*;
 import static de.main.serverCoreX.tablist.tablist.updateTablist;
 
 public class ScoardboardManager {
@@ -25,7 +26,7 @@ public class ScoardboardManager {
 
         Objective objective = board.registerNewObjective("citybuild","dummy","§6§l BLOCKHIVE ");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-
+        addToCustomScoreboard(p.getUniqueId());
         objective.getScore("§3").setScore(9);
 
         objective.getScore("§8» §6§lServer").setScore(8);
@@ -63,10 +64,64 @@ public class ScoardboardManager {
 
                 // Holt sich die Objective
                 Objective objective = board.getObjective("citybuild");
+
                 if (objective == null)
                 {
                     createScoreboard(p);
                     continue;
+                }
+                p.sendMessage("Scoreboard updated!");
+                if (getCustomScoreboard(p.getUniqueId()))
+                {
+                    objective.displayName(Component.text("\uE001").font(Key.key("kasai", "default")));
+
+                    String serverEntry = "§5";
+                    Team serverTeam = board.getTeam("server_icon");
+                    if (serverTeam == null)
+                        serverTeam = board.registerNewTeam("server_icon");
+                    serverTeam.addEntry(serverEntry);
+                    serverTeam.prefix(Component.text("\uE002").font(Key.key("kasai", "default")));
+                    objective.getScore(serverEntry).setScore(8);
+
+
+                    String kontoEntry = "§7";
+                    Team kontoTeam = board.getTeam("konto_icon");
+                    if (kontoTeam == null)
+                        kontoTeam = board.registerNewTeam("konto_icon");
+                    kontoTeam.addEntry(kontoEntry);
+                    kontoTeam.prefix(Component.text("\uE004").font(Key.key("kasai", "default")));
+                    objective.getScore(kontoEntry).setScore(2);
+
+
+                    String spielerEntry = "§6";
+                    Team spielerTeam = board.getTeam("spieler_icon");
+                    if (spielerTeam == null)
+                        spielerTeam = board.registerNewTeam("spieler_icon");
+                    spielerTeam.addEntry(spielerEntry);
+                    spielerTeam.prefix(Component.text("\uE003").font(Key.key("kasai", "default")));
+                    objective.getScore(spielerEntry).setScore(5);
+
+                    objective.getScore("§9").setScore(9);
+                    objective.getScore("§9").setScore(10);
+
+                    board.resetScores("§8» §6§lServer");
+                    board.resetScores("§8» §6§lKonto");
+                    board.resetScores("§8» §6§lSpieler");
+
+                }
+                else
+                {
+                    objective.displayName(Component.text("§6§lBLOCKHIVE"));
+                    objective.getScore("§8» §6§lServer").setScore(8);
+                    objective.getScore("§8» §6§lSpieler").setScore(5);
+                    objective.getScore("§8» §6§lKonto").setScore(2);
+
+                    board.resetScores("§5");
+                    board.resetScores("§7");
+                    board.resetScores("§6");
+                    board.resetScores("§9");
+                    board.resetScores("§9");
+
                 }
 
                 // Updaten des Scores

@@ -14,6 +14,8 @@
     import de.main.serverCoreX.commands.rtp.rtpCommand;
     import de.main.serverCoreX.commands.rtp.rtpListener;
     import de.main.serverCoreX.commands.rtp.spawnProtection;
+    import de.main.serverCoreX.commands.settings.setting;
+    import de.main.serverCoreX.commands.settings.settingsGUIListener;
     import de.main.serverCoreX.commands.sign.signCommand;
     import de.main.serverCoreX.commands.spawn.delSpawn;
     import de.main.serverCoreX.commands.spawn.setSpawn;
@@ -71,6 +73,12 @@
         public File bankFile;
         public FileConfiguration bank;
 
+        public File settingsFile;
+        public FileConfiguration settings;
+
+        public File settingsGUIFile;
+        public FileConfiguration settingsGUI;
+
         public EconomyManager economyManager;
 
         @Override
@@ -91,6 +99,7 @@
             Bukkit.getPluginManager().registerEvents(new bankListener(),this);
             Bukkit.getPluginManager().registerEvents(new messageListener(),this);
             Bukkit.getPluginManager().registerEvents(new invseeListener(),this);
+            Bukkit.getPluginManager().registerEvents(new settingsGUIListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("money").setExecutor(new moneyCommand());
@@ -130,6 +139,8 @@
             getCommand("tp").setExecutor(new tpCommand());
             getCommand("tphere").setExecutor(new tphereCommand());
 
+            getCommand("settings").setExecutor(new setting());
+
             getCommand("setspawn").setExecutor(new setSpawn());
             getCommand("spawn").setExecutor(new spawn());
             getCommand("delspawn").setExecutor(new delSpawn());
@@ -150,6 +161,8 @@
             saveResource("messages.yml",false);
             saveResource("bank.yml",false);
             saveResource("gui.yml", false);
+            saveResource("settings.yml", false);
+            saveResource("settingsGUI.yml", false);
             saveResource("starterkit.yml", false);
             saveResource("playerKitData.yml", false);
             saveResource("playerData.yml", false);
@@ -160,6 +173,12 @@
 
             bankFile = new File(getDataFolder(), "bank.yml");
             bank = YamlConfiguration.loadConfiguration(bankFile);
+
+            settingsFile = new File(getDataFolder(), "settings.yml");
+            settings = YamlConfiguration.loadConfiguration(settingsFile);
+
+            settingsGUIFile = new File(getDataFolder(), "settingsGUI.yml");
+            settingsGUI = YamlConfiguration.loadConfiguration(settingsGUIFile);
 
             kitPlayerDataFile = new File(getDataFolder(), "playerKitData.yml");
             kitPlayerData = YamlConfiguration.loadConfiguration(kitPlayerDataFile);
@@ -237,9 +256,11 @@
             PlayerData = YamlConfiguration.loadConfiguration(PlayerDataFile);
             tablist = YamlConfiguration.loadConfiguration(tablistFile);
             bank = YamlConfiguration.loadConfiguration(bankFile);
+            settings = YamlConfiguration.loadConfiguration(settingsFile);
+            settingsGUI = YamlConfiguration.loadConfiguration(settingsGUIFile);
             reloadConfig();
         }
-
+        public File getSettingsFile() {return settingsFile;}
         public File getPlayerDataFile()
         {
             return PlayerDataFile;

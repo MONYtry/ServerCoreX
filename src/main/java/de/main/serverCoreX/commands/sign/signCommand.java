@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import static de.main.serverCoreX.helper.colorMessage.handleColor;
+import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
 
 public class signCommand implements CommandExecutor {
@@ -53,7 +54,7 @@ public class signCommand implements CommandExecutor {
         String[] splitedLocalDate = rawLocalDate.toString().split("-");
         String date = splitedLocalDate[2] +"."+ splitedLocalDate[1] + "." + splitedLocalDate[0];
 
-        Component formattedLine = handleColor("§7Signiert am §e" + date + " §7von §b@" + p.getName());
+        Component formattedLine = handleColor(getPrefix() + "§7Signiert am §e" + date + " §7von §b@" + p.getName());
 
         lore.add(Component.text("§e"));
         lore.add(Component.text("§e"));

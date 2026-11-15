@@ -1,0 +1,20 @@
+guiTitel: "§eFarmwelten"
+items:
+  scoreboard:
+    material: PLAYER_HEAD
+    slot: 11
+    name: "§cScoreboard"
+    texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDAwY2ZkZjA2YzY4MTdmZmY4YTdjZjdhNGJlYWI4NjFhZGMwMzAxZDQ4MGQ3YjBkNDBjNjlkMDUzMWIwMWZmOSJ9fX0="
+    lore:
+      - ""
+      - "§eKlicke hier§7, um das"
+      - "§eScoardboard §7umzuschalten"
+    action: "scoreboard"
+
+  close:
+    material: BARRIER
+    slot: 31
+    name: "§c§lSchließen"
+    lore:
+      - "§7Schließt dieses Menü."
+    action: "close"
