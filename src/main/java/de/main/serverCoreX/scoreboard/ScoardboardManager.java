@@ -70,7 +70,7 @@ public class ScoardboardManager {
                     createScoreboard(p);
                     continue;
                 }
-                p.sendMessage("Scoreboard updated!");
+
                 if (getCustomScoreboard(p.getUniqueId()))
                 {
                     objective.displayName(Component.text("\uE001").font(Key.key("kasai", "default")));

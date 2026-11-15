@@ -3,6 +3,7 @@ package de.main.serverCoreX.tablist;
 
 import de.main.serverCoreX.ServerCoreX;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayer;
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
+import static de.main.serverCoreX.helper.rank.getRank;
 
 public class tablist {
 
@@ -68,15 +70,47 @@ public class tablist {
 
             footer = footer.replace("%online%", String.valueOf(getOnlinePlayers));
 
-            String tabName = PlaceholderAPI.setPlaceholders(p, file.getString("tab-name", "%luckperms_prefix% §7| §f%player_name%"));
+            String imageToUse = null;
+            String cleanRank = getRank(p).replaceAll("§.","");
+
+            Bukkit.getLogger().info(cleanRank);
+            switch (cleanRank.toLowerCase())
+            {
+                case "owner":
+                    imageToUse = "\uE006";
+                    break;
+                default:
+                    imageToUse = null;
+                    break;
+            }
+
+            Component tabName = Component.empty();
+            if (imageToUse != null)
+            {
+                Component logo = Component.text(imageToUse).font(Key.key("kasai", "default"));
+                tabName = Component.empty().append(logo).append(Component.text(" §7| §f" + p.getName()));
+            }
+            else
+                tabName = Component.empty().append(Component.text(getRank(p) +" §7| §f"+ p.getName()));
 
             // Setzt die Tablist
-            p.setPlayerListName(tabName);
+            p.playerListName(tabName);
+
+            Component logo = Component.text("\uE005").font(Key.key("kasai", "default"));
+
+            Component headerComponent = Component.empty().append(logo).append(Component.newline())
+                    .append(Component.newline())
+                    .append(Component.text("§e"));
+
+            Component footerComponent = Component.empty()
+                    .append(Component.newline()
+                    .append(Component.newline())
+                    .append(Component.text(footer)));
 
             // Sendet Header und Footer
             p.sendPlayerListHeaderAndFooter(
-                    Component.text(header),
-                    Component.text(footer)
+                    headerComponent,
+                    footerComponent
             );
 
         }
