@@ -4,10 +4,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-
+import static de.main.serverCoreX.commands.itemedit.cosmetic.attribute.setAttribute;
+import static de.main.serverCoreX.commands.itemedit.cosmetic.glint.setGlint;
+import static de.main.serverCoreX.commands.itemedit.cosmetic.unbreakable.setUnbreakable;
 import static de.main.serverCoreX.commands.itemedit.displayname.displayname.clearDisplayname;
 import static de.main.serverCoreX.commands.itemedit.displayname.displayname.setDisplayname;
 import static de.main.serverCoreX.commands.itemedit.enchantment.addEnchantment;
@@ -101,20 +101,19 @@ public class itemeditCommand implements CommandExecutor {
                 break;
 
             case "infinity":
-                ItemStack item = p.getInventory().getItemInMainHand();
-                ItemMeta meta = item.getItemMeta();
-                if (meta == null)
-                    return;
-
-                if (meta.isUnbreakable())
-                    meta.setUnbreakable(false);
-                else
-                    meta.setUnbreakable(true);
-
-                item.setItemMeta(meta);
-                sendPlayerMessage(p,"§7Die §eUnzerstörbarkeit §7wurde auf §e" + meta.isUnbreakable() + " §7gesetzt");
+                setUnbreakable(p);
                 break;
-
+            case "glint":
+                setGlint(p);
+                break;
+            case "attribute":
+                if (args.length < 4)
+                {
+                    sendPlayerMessage(p, "§cNutze: /itemedit set attribute <Attribute>");
+                    return;
+                }
+                setAttribute(p,args[2], args[3]);
+                break;
             case "displayname":
                 String name = String.join(" ", args).substring(args[0].length() + args[1].length() + 2);
                 setDisplayname(p,name);

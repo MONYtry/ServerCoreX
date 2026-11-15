@@ -7,6 +7,7 @@
     import de.main.serverCoreX.commands.invsee.invseeCommand;
     import de.main.serverCoreX.commands.invsee.invseeListener;
     import de.main.serverCoreX.commands.itemedit.itemeditCommand;
+    import de.main.serverCoreX.commands.itemedit.itemeditTabCompleter;
     import de.main.serverCoreX.commands.rewards.belohnung.belohnungCommand;
     import de.main.serverCoreX.commands.rewards.daily.dailyCommand;
     import de.main.serverCoreX.commands.rtp.farmworld.farmweltListener;
@@ -93,7 +94,10 @@
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("money").setExecutor(new moneyCommand());
+
             getCommand("itemedit").setExecutor(new itemeditCommand());
+            getCommand("itemedit").setTabCompleter(new itemeditTabCompleter());
+
             getCommand("clear").setExecutor(new clearCommand());
             getCommand("belohnung").setExecutor(new belohnungCommand());
             getCommand("daily").setExecutor(new dailyCommand());
