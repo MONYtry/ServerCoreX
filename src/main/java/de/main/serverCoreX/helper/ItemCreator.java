@@ -27,7 +27,6 @@ public class ItemCreator {
     {
         FileConfiguration cfg = cfgToUse;
 
-        // Schau Config macht Sinn :)
         ConfigurationSection items = cfg.getConfigurationSection("items");
 
         // Geht durch jede Kategorie
@@ -67,9 +66,7 @@ public class ItemCreator {
                 System.out.print("error Critical!");
             }
 
-            // Basic Stuff
             ItemStack item;
-
             if (cfg.contains(path + ".texture"))
             {
                 String texture = cfg.getString(path + ".texture");
@@ -89,13 +86,8 @@ public class ItemCreator {
             String action = cfg.getString(path + ".action");
 
             if (action != null)
-            {
-                meta.getPersistentDataContainer().set(
-                        new NamespacedKey(ServerCoreX.getInstance(), "action"),
-                        PersistentDataType.STRING,
-                        action
-                );
-            }
+                meta.getPersistentDataContainer().set(new NamespacedKey(ServerCoreX.getInstance(), "action"), PersistentDataType.STRING, action);
+
 
             boolean customModelData = cfg.getBoolean(path + ".UseCustomModel");
             if (customModelData)
@@ -174,9 +166,8 @@ public class ItemCreator {
             List<String> lore = cfg.getStringList(path + ".lore");
             // Setzt Lore falls sie existiert
             if (lore != null || !lore.isEmpty())
-            {
                 itemMeta.setLore(lore);
-            }
+
 
             item.setItemMeta(itemMeta);
 

@@ -1,3 +1,13 @@
 farmwelt:
   name: "LOBBY01"
   redstoneStatus: false
+
+customTextures:
+  texturepackName: "kasai"
+  fontKeys:
+    - "\uE001" # Scoreboard-Title
+    - "\uE002" # Server-Icon
+    - "\uE003" # Spieler Icon
+    - "\uE004" # Konto Icon
+    - "\uE005" # Tablist-Icon
+    - "\uE006" # Owner Rang

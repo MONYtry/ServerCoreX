@@ -1,11 +1,16 @@
 package de.main.serverCoreX.scoreboard;
 
+import de.main.serverCoreX.ServerCoreX;
 import org.bukkit.Bukkit;
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.key.Key;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
 import static de.main.serverCoreX.helper.customImages.setTextureInScoreboard;
@@ -53,11 +58,14 @@ public class ScoardboardManager {
     public static void update()
     {
         repeat(() -> {
+            int maxOnlinePlayers = Bukkit.getMaxPlayers();
             int onlinePlayers = Bukkit.getOnlinePlayers().size();
             onlinePlayers -= getVanishedPlayers().size();
 
-            int maxOnlinePlayers = Bukkit.getMaxPlayers();
             updateTablist();
+            FileConfiguration config = ServerCoreX.getInstance().getConfig();
+            List<String> fontKeys =  config.getStringList("customTextures.fontKeys");
+
             for (Player p : Bukkit.getOnlinePlayers())
             {
                 // Holt sich das Scoreboard des Spielers
@@ -75,12 +83,11 @@ public class ScoardboardManager {
                 if (getCustomScoreboard(p.getUniqueId()))
                 {
                     // Setzt den Titel als Custom-Texture
-                    objective.displayName(Component.text("\uE001").font(Key.key("kasai", "default")));
+                    objective.displayName(Component.text(fontKeys.get(0)).font(Key.key("kasai", "default")));
                     // Setzt Custom-Texturen für das gesamte Scoreboard
-                    setTextureInScoreboard(objective,board,"§5","server_icon","\uE002","kasai",8);
-                    setTextureInScoreboard(objective,board,"§7","konto_icon","\uE004","kasai",2);
-                    setTextureInScoreboard(objective,board,"§6","spieler_icon","\uE003","kasai",5);
-
+                    setTextureInScoreboard(objective,board,"§5","server_icon",fontKeys.get(1),"kasai",8);
+                    setTextureInScoreboard(objective,board,"§7","konto_icon",fontKeys.get(3),"kasai",2);
+                    setTextureInScoreboard(objective,board,"§6","spieler_icon",fontKeys.get(2),"kasai",5);
 
                     objective.getScore("§9").setScore(9);
                     objective.getScore("§9").setScore(10);
@@ -97,9 +104,8 @@ public class ScoardboardManager {
                     objective.getScore("§8» §6§lKonto").setScore(2);
 
                     for (int i = 5; i < 9; i++)
-                    {
                         board.resetScores("§" + i);
-                    }
+
                 }
 
                 // Updaten des Scores
@@ -116,13 +122,11 @@ public class ScoardboardManager {
                 {
                     // Falls es Weis ist und Geld beinhaltet, reset
                     if (entry.startsWith("§f") && entry.contains("$"))
-                    {
                         board.resetScores(entry);
-                    }
+
                     if (entry.startsWith("§f") && entry.contains("/"))
-                    {
                         board.resetScores(entry);
-                    }
+
                 }
                 objective.getScore("§f" + balance + "$").setScore(1);
                 objective.getScore(playerDisplay).setScore(4);

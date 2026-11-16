@@ -25,7 +25,8 @@ public class tablist {
     public static void updateTablist() {
 
         FileConfiguration file = ServerCoreX.getInstance().tablist;
-
+        FileConfiguration config = ServerCoreX.getInstance().getConfig();
+        List<String> fontKeys =  config.getStringList("customTextures.fontKeys");
         if (file == null) {
             Bukkit.getLogger().warning("Es ist ein Fehler beim Laden der Tablist-File aufgetreten! z.16");
             return;
@@ -42,6 +43,7 @@ public class tablist {
                 players.add(p);
             }
         }
+
 
         // Spieler nach LuckPerms-Gruppen sortieren
         players.sort(
@@ -76,7 +78,7 @@ public class tablist {
             // Setzt die Tablist
             p.playerListName(tabName);
 
-            Component logo = Component.text("\uE005").font(Key.key("kasai", "default"));
+            Component logo = Component.text(fontKeys.get(4)).font(Key.key("kasai", "default"));
 
             Component headerComponent = Component.empty().append(logo).append(Component.newline())
                     .append(Component.newline())

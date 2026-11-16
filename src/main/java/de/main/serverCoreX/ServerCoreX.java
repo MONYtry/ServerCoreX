@@ -90,6 +90,7 @@
             VaultHook.register(this);
 
             saveDefaultConfig();
+
             Bukkit.getPluginManager().registerEvents(new RestartCommand(),this);
             Bukkit.getPluginManager().registerEvents(new HealCommand(),this);
             Bukkit.getPluginManager().registerEvents(new joinListener(),this);
