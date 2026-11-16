@@ -1,7 +1,7 @@
 package de.main.serverCoreX.listener.joinLeave;
 
 import de.main.serverCoreX.ServerCoreX;
-import de.main.serverCoreX.prefix;
+import de.main.serverCoreX.prefix.prefix;
 import de.main.serverCoreX.scoreboard.ScoardboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -18,7 +18,9 @@ import java.util.List;
 
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayer;
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
+import static de.main.serverCoreX.helper.rank.getDisplayRank;
 import static de.main.serverCoreX.helper.rank.getRank;
+import static de.main.serverCoreX.tablist.TablistSettings.getCustomtablist;
 
 public class tablist {
 
@@ -70,28 +72,8 @@ public class tablist {
 
             footer = footer.replace("%online%", String.valueOf(getOnlinePlayers));
 
-            String imageToUse = null;
-            String cleanRank = getRank(p).replaceAll("§.","");
+            Component tabName = getDisplayRank(p);
 
-            Bukkit.getLogger().info(cleanRank);
-            switch (cleanRank.toLowerCase())
-            {
-                case "owner":
-                    imageToUse = "\uE006";
-                    break;
-                default:
-                    imageToUse = null;
-                    break;
-            }
-
-            Component tabName = Component.empty();
-            if (imageToUse != null)
-            {
-                Component logo = Component.text(imageToUse).font(Key.key("kasai", "default"));
-                tabName = Component.empty().append(logo).append(Component.text(" §7| §f" + p.getName()));
-            }
-            else
-                tabName = Component.empty().append(Component.text(getRank(p) +" §7| §f"+ p.getName()));
 
             // Setzt die Tablist
             p.playerListName(tabName);

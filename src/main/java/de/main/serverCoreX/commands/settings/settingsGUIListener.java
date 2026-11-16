@@ -10,7 +10,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.prefix.PrefixSettings.toggleCustomPrefix;
 import static de.main.serverCoreX.scoreboard.ScoreboardSettings.toggleCustomScoreboard;
+import static de.main.serverCoreX.tablist.TablistSettings.toggleCustomTablist;
 
 public class settingsGUIListener implements Listener {
 
@@ -40,7 +42,14 @@ public class settingsGUIListener implements Listener {
         switch (action.toLowerCase()) {
             case "scoreboard":
                 toggleCustomScoreboard(p.getUniqueId());
+                break;
 
+            case "prefix":
+                toggleCustomPrefix(p.getUniqueId());
+                break;
+
+            case "tablist":
+                toggleCustomTablist(p.getUniqueId());
                 break;
 
             case "close":
