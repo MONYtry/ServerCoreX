@@ -8,6 +8,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.key.Key;
 
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
+import static de.main.serverCoreX.helper.customImages.setTextureInScoreboard;
 import static de.main.serverCoreX.helper.timer.repeat;
 
 import static de.main.serverCoreX.scoreboard.ScoreboardSettings.*;
@@ -73,33 +74,13 @@ public class ScoardboardManager {
 
                 if (getCustomScoreboard(p.getUniqueId()))
                 {
+                    // Setzt den Titel als Custom-Texture
                     objective.displayName(Component.text("\uE001").font(Key.key("kasai", "default")));
+                    // Setzt Custom-Texturen für das gesamte Scoreboard
+                    setTextureInScoreboard(objective,board,"§5","server_icon","\uE002","kasai",8);
+                    setTextureInScoreboard(objective,board,"§7","konto_icon","\uE004","kasai",2);
+                    setTextureInScoreboard(objective,board,"§6","spieler_icon","\uE003","kasai",5);
 
-                    String serverEntry = "§5";
-                    Team serverTeam = board.getTeam("server_icon");
-                    if (serverTeam == null)
-                        serverTeam = board.registerNewTeam("server_icon");
-                    serverTeam.addEntry(serverEntry);
-                    serverTeam.prefix(Component.text("\uE002").font(Key.key("kasai", "default")));
-                    objective.getScore(serverEntry).setScore(8);
-
-
-                    String kontoEntry = "§7";
-                    Team kontoTeam = board.getTeam("konto_icon");
-                    if (kontoTeam == null)
-                        kontoTeam = board.registerNewTeam("konto_icon");
-                    kontoTeam.addEntry(kontoEntry);
-                    kontoTeam.prefix(Component.text("\uE004").font(Key.key("kasai", "default")));
-                    objective.getScore(kontoEntry).setScore(2);
-
-
-                    String spielerEntry = "§6";
-                    Team spielerTeam = board.getTeam("spieler_icon");
-                    if (spielerTeam == null)
-                        spielerTeam = board.registerNewTeam("spieler_icon");
-                    spielerTeam.addEntry(spielerEntry);
-                    spielerTeam.prefix(Component.text("\uE003").font(Key.key("kasai", "default")));
-                    objective.getScore(spielerEntry).setScore(5);
 
                     objective.getScore("§9").setScore(9);
                     objective.getScore("§9").setScore(10);
@@ -107,7 +88,6 @@ public class ScoardboardManager {
                     board.resetScores("§8» §6§lServer");
                     board.resetScores("§8» §6§lKonto");
                     board.resetScores("§8» §6§lSpieler");
-
                 }
                 else
                 {
@@ -116,12 +96,10 @@ public class ScoardboardManager {
                     objective.getScore("§8» §6§lSpieler").setScore(5);
                     objective.getScore("§8» §6§lKonto").setScore(2);
 
-                    board.resetScores("§5");
-                    board.resetScores("§7");
-                    board.resetScores("§6");
-                    board.resetScores("§9");
-                    board.resetScores("§9");
-
+                    for (int i = 5; i < 9; i++)
+                    {
+                        board.resetScores("§" + i);
+                    }
                 }
 
                 // Updaten des Scores

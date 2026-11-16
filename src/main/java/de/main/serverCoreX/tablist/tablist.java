@@ -18,9 +18,7 @@ import java.util.List;
 
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayer;
 import static de.main.serverCoreX.commands.vanish.vanishManager.getVanishedPlayers;
-import static de.main.serverCoreX.helper.rank.getDisplayRank;
-import static de.main.serverCoreX.helper.rank.getRank;
-import static de.main.serverCoreX.tablist.TablistSettings.getCustomtablist;
+import static de.main.serverCoreX.helper.customImages.getDisplayRank;
 
 public class tablist {
 
@@ -72,7 +70,7 @@ public class tablist {
 
             footer = footer.replace("%online%", String.valueOf(getOnlinePlayers));
 
-            Component tabName = getDisplayRank(p);
+            Component tabName = getDisplayRank(p,true);
 
 
             // Setzt die Tablist
