@@ -259,6 +259,7 @@
             bank = YamlConfiguration.loadConfiguration(bankFile);
             settings = YamlConfiguration.loadConfiguration(settingsFile);
             settingsGUI = YamlConfiguration.loadConfiguration(settingsGUIFile);
+
             reloadConfig();
         }
         public File getSettingsFile() {return settingsFile;}

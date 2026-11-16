@@ -103,7 +103,7 @@ public class ScoardboardManager {
                     objective.getScore("§8» §6§lSpieler").setScore(5);
                     objective.getScore("§8» §6§lKonto").setScore(2);
 
-                    for (int i = 5; i < 9; i++)
+                    for (int i = 5; i < 10; i++)
                         board.resetScores("§" + i);
 
                 }

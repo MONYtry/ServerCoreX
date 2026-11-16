@@ -17,8 +17,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.components.CustomModelDataComponent;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static de.main.serverCoreX.helper.placeholder.replacePlaceholder;
 
 public class ItemCreator {
 
@@ -48,11 +52,7 @@ public class ItemCreator {
             List<String> lore = cfg.getStringList(path + ".lore");
             if (p != null)
             {
-                double balance = EconomyManager.getOnlineBalance(p.getUniqueId());
-                for (int i = 0; i < lore.size(); i++)
-                {
-                    lore.set(i, lore.get(i).replace("%get_balance%", String.valueOf(balance)));
-                }
+                replacePlaceholder((ArrayList<String>) lore,p);
             }
 
             // Ignorieren

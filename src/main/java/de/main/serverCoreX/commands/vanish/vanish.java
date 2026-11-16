@@ -79,17 +79,17 @@ public class vanish implements CommandExecutor {
 
             Scoreboard board = viewer.getScoreboard();
 
-            Team team = board.getTeam("vanish");
+            String teamName = "prefix_" + viewer.getUniqueId().toString().replace("-", "").substring(0, 10);
+            Team team = board.getTeam(teamName);
 
-            if (team == null) {
-                team = board.registerNewTeam("vanish");
-            }
+
+            if (team == null) continue;
 
             if (getVanishedPlayer(vanishedPlayer.getUniqueId())) {
                 team.suffix(Component.text(" [V]", NamedTextColor.RED));
                 team.addEntry(vanishedPlayer.getName());
             } else {
-                team.removeEntry(vanishedPlayer.getName());
+                team.suffix(Component.empty());
             }
         }
     }
