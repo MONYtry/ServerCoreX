@@ -3,7 +3,6 @@ package de.main.serverCoreX.helper;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import de.main.serverCoreX.ServerCoreX;
-import de.main.serverCoreX.economy.EconomyManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -29,13 +28,34 @@ public class ItemCreator {
     public static void createCustomModelInventory(Inventory inventoryToUse,FileConfiguration cfgToUse)
     {
         FileConfiguration cfg = cfgToUse;
-        int index = 0;
         ConfigurationSection items = cfg.getConfigurationSection("items");
+
+        int index = 0;
+
         for (String key : items.getKeys(false))
         {
             String path = "items." + key;
             String materialName = cfg.getString(path + ".material");
             String name = cfg.getString(path + ".name");
+
+            String rarity = cfg.getString(path + ".rarity");
+            if (rarity == null)
+                rarity = "not found!";
+
+            List<String> lore = cfg.getStringList(path + ".lore");
+            if (lore.isEmpty())
+                lore = new ArrayList<>();
+
+            // Seltenheit hinzufügen
+            lore.add("§e");
+
+            // Paths
+            String raritiesPath = "rarities.";
+            String errorPath = cfg.getString(raritiesPath + ".error","Error while getting Config-Connection");
+            String displayPath = cfg.getString(raritiesPath + "display", "§7Seltenheit §8» §e");
+
+            // Fügt eine Seltenheits-Lore in die Lore ein
+            lore.add(displayPath + cfg.getString(raritiesPath + rarity.toLowerCase(),errorPath));
 
             Material material;
             try {
@@ -46,11 +66,16 @@ public class ItemCreator {
 
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(name);
 
-            if (cfg.getString(path + ".customModelName") != null)
+            meta.setDisplayName(name);
+            meta.setLore(lore);
+
+            String rawModel = cfg.getString(path + ".customModelName");
+
+            if (rawModel != null)
             {
-                String rawModel = cfg.getString(path + ".customModelName");
+                rawModel = rawModel.replace("%texturePackName%",cfg.getString("customTextures.texturepackName","kasai"));
+
                 String[] modelFinal = rawModel.split(" ");
 
                 if (rawModel.isEmpty() || modelFinal[0] == null || modelFinal[1] == null)
@@ -63,13 +88,16 @@ public class ItemCreator {
                 CustomModelDataComponent data = meta.getCustomModelDataComponent();
                 data.setStrings(List.of(modelFinal[1]));
                 meta.setCustomModelDataComponent(data);
-                index++;
+
             }
 
             item.setItemMeta(meta);
             inventoryToUse.setItem(index,item);
+            index++;
         }
     }
+
+
     public static void autoGenItemsWithConfigGUI(Inventory inventoryToUse,FileConfiguration cfgToUse, Player p)
     {
         FileConfiguration cfg = cfgToUse;

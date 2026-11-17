@@ -12,8 +12,23 @@ customTextures:
     - "\uE005" # Tablist-Icon
     - "\uE006" # Owner Rang
 
+rarities:
+  common: "§7Gewöhlich"
+  uncommon: "§7Ungewöhnlich"
+  rare: "§eSelten"
+  epic: "§dEpisch"
+  legendary: "§6Legendär"
+  mythic: "§f§kee§r §cMytisch §f§kee§r"
+  error: "Es ist ein kritischer Fehler aufgetreten!"
+  display: "§7Seltenheit §8» §e"
+
 items:
   test:
-    name: "§eTest"
+    name: "§eBohrer"
     material: DIAMOND_PICKAXE
     customModelName: "%texturePackName%:pickaxe/pickaxe bohrer"
+    lore:
+      - ""
+      - "§7Dieser Bohrer baut"
+      - "§e3x3 §7Blöcke ab!"
+    rarity: rare
