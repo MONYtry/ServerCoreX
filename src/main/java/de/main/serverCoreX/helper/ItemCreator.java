@@ -26,7 +26,50 @@ import static de.main.serverCoreX.helper.placeholder.replacePlaceholder;
 
 public class ItemCreator {
 
+    public static void createCustomModelInventory(Inventory inventoryToUse,FileConfiguration cfgToUse)
+    {
+        FileConfiguration cfg = cfgToUse;
+        int index = 0;
+        ConfigurationSection items = cfg.getConfigurationSection("items");
+        for (String key : items.getKeys(false))
+        {
+            String path = "items." + key;
+            String materialName = cfg.getString(path + ".material");
+            String name = cfg.getString(path + ".name");
 
+            Material material;
+            try {
+                material = Material.getMaterial(materialName);
+            } catch (Exception e) {
+                material = Material.STONE;
+            }
+
+            ItemStack item = new ItemStack(material);
+            ItemMeta meta = item.getItemMeta();
+            meta.setDisplayName(name);
+
+            if (cfg.getString(path + ".customModelName") != null)
+            {
+                String rawModel = cfg.getString(path + ".customModelName");
+                String[] modelFinal = rawModel.split(" ");
+
+                if (rawModel.isEmpty() || modelFinal[0] == null || modelFinal[1] == null)
+                    continue;
+
+                // Setzt das Item-Model
+                meta.setItemModel(NamespacedKey.fromString(modelFinal[0]));
+
+                // Custom Model Data
+                CustomModelDataComponent data = meta.getCustomModelDataComponent();
+                data.setStrings(List.of(modelFinal[1]));
+                meta.setCustomModelDataComponent(data);
+                index++;
+            }
+
+            item.setItemMeta(meta);
+            inventoryToUse.setItem(index,item);
+        }
+    }
     public static void autoGenItemsWithConfigGUI(Inventory inventoryToUse,FileConfiguration cfgToUse, Player p)
     {
         FileConfiguration cfg = cfgToUse;

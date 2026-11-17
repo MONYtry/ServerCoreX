@@ -11,3 +11,9 @@ customTextures:
     - "\uE004" # Konto Icon
     - "\uE005" # Tablist-Icon
     - "\uE006" # Owner Rang
+
+items:
+  test:
+    name: "§eTest"
+    material: DIAMOND_PICKAXE
+    customModelName: "%texturePackName%:pickaxe/pickaxe bohrer"

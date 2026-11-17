@@ -26,6 +26,7 @@ public class tablist {
 
         FileConfiguration file = ServerCoreX.getInstance().tablist;
         FileConfiguration config = ServerCoreX.getInstance().getConfig();
+
         List<String> fontKeys =  config.getStringList("customTextures.fontKeys");
         if (file == null) {
             Bukkit.getLogger().warning("Es ist ein Fehler beim Laden der Tablist-File aufgetreten! z.16");
@@ -73,7 +74,6 @@ public class tablist {
             footer = footer.replace("%online%", String.valueOf(getOnlinePlayers));
 
             Component tabName = getDisplayRank(p,true);
-
 
             // Setzt die Tablist
             p.playerListName(tabName);

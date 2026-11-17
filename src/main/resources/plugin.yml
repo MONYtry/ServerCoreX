@@ -22,6 +22,10 @@ commands:
     description: "Use it to change the gamemode of an player"
     aliases:
       - gamemode
+  customItem:
+    usage: customItem
+    description: "customItem"
+
   tpa:
     usage: tpa
     description: "Sends a teleport-request"

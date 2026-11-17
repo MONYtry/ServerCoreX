@@ -4,6 +4,8 @@
     import de.main.serverCoreX.commands.broadcast.broadcast;
     import de.main.serverCoreX.commands.clear.clearCommand;
     import de.main.serverCoreX.commands.clearchat.clearChatCommand;
+    import de.main.serverCoreX.commands.customDB.customItemDB;
+    import de.main.serverCoreX.commands.customDB.customItemDBListener;
     import de.main.serverCoreX.commands.invsee.invseeCommand;
     import de.main.serverCoreX.commands.invsee.invseeListener;
     import de.main.serverCoreX.commands.itemedit.itemeditCommand;
@@ -101,6 +103,7 @@
             Bukkit.getPluginManager().registerEvents(new messageListener(),this);
             Bukkit.getPluginManager().registerEvents(new invseeListener(),this);
             Bukkit.getPluginManager().registerEvents(new settingsGUIListener(),this);
+            Bukkit.getPluginManager().registerEvents(new customItemDBListener(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("money").setExecutor(new moneyCommand());
@@ -151,6 +154,8 @@
             ecoCommand ecoCommand = new ecoCommand();
             getCommand("eco").setExecutor(ecoCommand);
             getCommand("eco").setTabCompleter(ecoCommand);
+
+            getCommand("customItem").setExecutor(new customItemDB());
 
             getCommand("invsee").setExecutor(new invseeCommand());
 

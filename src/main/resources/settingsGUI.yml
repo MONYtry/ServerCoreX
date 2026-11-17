@@ -9,6 +9,8 @@ items:
       - ""
       - "§eKlicke hier§7, um das"
       - "§eScoardboard §7umzuschalten"
+      - ""
+      - "§7Status: %get_settings_scoreboard%"
     action: "scoreboard"
 
   tablist:
@@ -20,6 +22,8 @@ items:
       - ""
       - "§eKlicke hier§7, um die"
       - "§eTablist §7umzuschalten"
+      - ""
+      - "§7Status: %get_settings_tablist%"
     action: "tablist"
 
 
@@ -32,6 +36,8 @@ items:
       - ""
       - "§eKlicke hier§7, um den"
       - "§ePrefix §7umzuschalten"
+      - ""
+      - "§7Status: %get_settings_prefix%"
     action: "prefix"
 
   close:
