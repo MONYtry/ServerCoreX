@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class customItemDBListener implements Listener {
 
@@ -24,9 +25,11 @@ public class customItemDBListener implements Listener {
         ItemStack item = e.getCurrentItem();
         if (!item.hasItemMeta())
             return;
-        Player p = (Player) e.getWhoClicked();
 
-        p.getInventory().addItem(item);
+        Player p = (Player) e.getWhoClicked();
+        if (hasPermission(p,"customItems.use"))
+            p.getInventory().addItem(item);
+
         sendPlayerMessage(p, "§7Dir wurde erfolgreich §e" + item.getItemMeta().getDisplayName() + " §7geben!");
         p.closeInventory();
     }

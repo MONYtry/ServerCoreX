@@ -13,6 +13,7 @@ import static de.main.serverCoreX.commands.itemedit.displayname.displayname.setD
 import static de.main.serverCoreX.commands.itemedit.enchantment.addEnchantment;
 import static de.main.serverCoreX.commands.itemedit.lore.lore.*;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class itemeditCommand implements CommandExecutor {
 
@@ -22,6 +23,8 @@ public class itemeditCommand implements CommandExecutor {
             return true;
 
         if (!(sender instanceof Player p))
+            return true;
+        if (!hasPermission(p,"itemedit.use"))
             return true;
         if (args.length == 0)
         {

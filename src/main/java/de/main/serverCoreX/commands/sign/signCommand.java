@@ -17,6 +17,7 @@ import java.util.List;
 import static de.main.serverCoreX.helper.colorMessage.handleColor;
 import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 
 public class signCommand implements CommandExecutor {
 
@@ -26,6 +27,8 @@ public class signCommand implements CommandExecutor {
             return true;
 
         if (!(sender instanceof Player p))
+            return true;
+        if (hasPermission(p,"sign.use"))
             return true;
 
         ItemStack item = p.getInventory().getItemInMainHand();

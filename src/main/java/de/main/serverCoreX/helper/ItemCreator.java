@@ -21,11 +21,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static de.main.serverCoreX.helper.permissionCheck.hasPermission;
 import static de.main.serverCoreX.helper.placeholder.replacePlaceholder;
 
 public class ItemCreator {
 
-    public static void createCustomModelInventory(Inventory inventoryToUse,FileConfiguration cfgToUse)
+    public static void createCustomModelInventory(Inventory inventoryToUse,FileConfiguration cfgToUse, Player p)
     {
         FileConfiguration cfg = cfgToUse;
         ConfigurationSection items = cfg.getConfigurationSection("items");
@@ -68,6 +69,13 @@ public class ItemCreator {
 
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
+
+            if (hasPermission(p,"customItems.use"))
+            {
+                lore.add("§e");
+                lore.add("§7Klicke hier, um das Item zu entnehmen!");
+                lore.add("§e");
+            }
 
             meta.setDisplayName(name);
             meta.setLore(lore);

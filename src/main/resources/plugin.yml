@@ -147,6 +147,8 @@ commands:
 
 
 permissions:
+  customItems.use:
+    default: op
   chat.cooldown.bypass:
     default: op
   serverrestart.use:

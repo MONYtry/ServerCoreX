@@ -24,7 +24,7 @@ public class customItemDB implements CommandExecutor {
             return true;
 
         Inventory inv = Bukkit.createInventory(null, 36,getPrefix() + "§cCustom-Items");
-        createCustomModelInventory(inv, ServerCoreX.getInstance().getConfig());
+        createCustomModelInventory(inv, ServerCoreX.getInstance().getConfig(),p);
         p.openInventory(inv);
         return true;
     }
