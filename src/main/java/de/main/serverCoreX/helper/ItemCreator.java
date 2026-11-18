@@ -47,20 +47,8 @@ public class ItemCreator {
             if (lore.isEmpty())
                 lore = new ArrayList<>();
 
-            // Seltenheit hinzufügen
-            lore.add("§e");
 
-            // Paths
 
-            String raritiesPath = "rarities.";
-            String errorPath = cfg.getString(raritiesPath + "error","Error while getting Config-Connection");
-
-            String displayRarity = cfg.getString(raritiesPath + "display", "§7Seltenheit §8» §e");
-            String displaytType = cfg.getString(path + ".type","Fehler bitte Type in der Config.yml angeben!");
-
-            // Fügt eine Seltenheits-Lore in die Lore ein
-            lore.add(displayRarity + cfg.getString(raritiesPath + rarity.toLowerCase(),errorPath));
-            lore.add("§7Typ §8» " + displaytType);
 
             Material material;
             try {
@@ -78,6 +66,39 @@ public class ItemCreator {
                 NamespacedKey nbtKey = new NamespacedKey(ServerCoreX.getPlugin(ServerCoreX.class),"custom_item");
                 meta.getPersistentDataContainer().set(nbtKey, PersistentDataType.STRING, nbt);
             }
+
+            NamespacedKey getNbtKey = new NamespacedKey(ServerCoreX.getPlugin(ServerCoreX.class),"custom_item");
+            String value = meta.getPersistentDataContainer().get(getNbtKey, PersistentDataType.STRING);
+
+            if (value != null)
+            {
+                switch (value.toLowerCase())
+                {
+                    case "3x3_drill":
+                        lore.add("§e");
+                        lore.add("§aFähigkeit: Zerstört 3x3 Blöcke");
+                        lore.add("§8Bezieht sich nur auf Gestein und Erze!");
+                        lore.add("§e");
+
+                        break;
+                    default:
+                        lore.add("§e");
+                        lore.add("§7Dieses Werkzeug besitzt keine extra Fähigkeit!");
+                        lore.add("§e");
+                        break;
+                }
+            }
+
+            // Paths
+            String raritiesPath = "rarities.";
+            String errorPath = cfg.getString(raritiesPath + "error","Error while getting Config-Connection");
+
+            String displayRarity = cfg.getString(raritiesPath + "display", "§7Seltenheit §8» §e");
+            String displaytType = cfg.getString(path + ".type","Fehler bitte Type in der Config.yml angeben!");
+
+            // Fügt eine Seltenheits-Lore in die Lore ein
+            lore.add(displayRarity + cfg.getString(raritiesPath + rarity.toLowerCase(),errorPath));
+            lore.add("§7Typ §8» " + displaytType);
 
             if (hasPermission(p,"customItems.use"))
             {

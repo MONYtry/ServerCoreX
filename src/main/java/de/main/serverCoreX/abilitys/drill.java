@@ -13,7 +13,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class drill implements Listener {
+    static List<Material> drill_whitelist = new ArrayList<>();
+    static {
+        drill_whitelist.add(Material.STONE);
+        drill_whitelist.add(Material.GRANITE);
+        drill_whitelist.add(Material.ANDESITE);
+        drill_whitelist.add(Material.DEEPSLATE);
+    }
+
 
     @EventHandler
     public void blockbroken (BlockBreakEvent e)
@@ -29,12 +40,10 @@ public class drill implements Listener {
         ItemMeta itemMeta = itemStack.getItemMeta();
         NamespacedKey key = new NamespacedKey(ServerCoreX.getPlugin(ServerCoreX.class),"custom_item");
 
-        String value = itemMeta.getPersistentDataContainer().get(
-                key,
-                PersistentDataType.STRING
-        );
+        String value = itemMeta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
         if (value == null)
             return;
+
         if (!value.equalsIgnoreCase("3x3_drill") && !value.equalsIgnoreCase("5x5_drill"))
             return;
 
@@ -62,12 +71,9 @@ public class drill implements Listener {
         Location startLoc = e.getBlock().getLocation();
 
         Location loc = p.getLocation();
-
         float yaw = loc.getYaw();     // X Z
         float pitch = loc.getPitch();  // Y
-
-        if (p.isOp())
-            p.sendMessage("Yaw: " + yaw + " | Pitch: " + pitch);
+        boolean blockBroken = false;
 
         if (pitch >= 60 || pitch <= -60)
         {
@@ -75,10 +81,14 @@ public class drill implements Listener {
             // Währendessen geht das selbe pro durchlauf bei der Z-Achse, es wird der Block entfernt
             for (int x = start; x <= end; x++)
                 for (int z = start; z <= end; z++)
-                    startLoc.clone().add(x,0,z).getBlock().setType(Material.AIR);
+                    if (drill_whitelist.contains(startLoc.clone().add(x,0,z).getBlock().getType()))
+                    {
+                        startLoc.clone().add(x,0,z).getBlock().setType(Material.AIR);
+                        blockBroken = true;
+                    }
 
-            if (p.isOp())
-                p.sendMessage("Nach unten mit dir!");
+            if (blockBroken)
+                itemStack.damage(3,p);
             return;
         }
 
@@ -86,8 +96,14 @@ public class drill implements Listener {
         {
             for (int z = start; z <= end; z++)
                 for (int y = start; y <= end; y++)
-                    startLoc.clone().add(0,y,z).getBlock().setType(Material.AIR);
+                    if (drill_whitelist.contains(startLoc.clone().add(0,y,z).getBlock().getType()))
+                    {
+                        startLoc.clone().add(0,y,z).getBlock().setType(Material.AIR);
+                        blockBroken =true;
+                    }
 
+            if (blockBroken)
+                itemStack.damage(3,p);
             return;
         }
 
@@ -95,9 +111,12 @@ public class drill implements Listener {
         // Geht genau nur bis zu 1
         for (int x= start; x <= end; x++)
             for (int y= start; y <= end; y++)
-                startLoc.clone().add(x,y,0).getBlock().setType(Material.AIR);
-
-        p.sendMessage("Drill erkannt!");
-
+                if (drill_whitelist.contains(startLoc.clone().add(x,y,0).getBlock().getType()))
+                {
+                    blockBroken = true;
+                    startLoc.clone().add(x, y, 0).getBlock().setType(Material.AIR);
+                }
+        if (blockBroken)
+            itemStack.damage(3,p);
     }
 }

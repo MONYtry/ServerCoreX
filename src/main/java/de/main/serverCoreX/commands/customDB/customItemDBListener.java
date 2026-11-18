@@ -5,6 +5,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
 
 import static de.main.serverCoreX.helper.messages.getPrefix;
 import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
@@ -27,9 +30,18 @@ public class customItemDBListener implements Listener {
             return;
 
         Player p = (Player) e.getWhoClicked();
-        if (hasPermission(p,"customItems.use"))
-            p.getInventory().addItem(item);
+        if (!hasPermission(p,"customItems.use"))
+            return;
 
+        ItemMeta meta = item.getItemMeta();
+
+        List<String> lore = meta.getLore();
+        lore.remove("§aFähigkeit: Zerstört 3x3 Blöcke");
+
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+
+        p.getInventory().addItem(item);
         sendPlayerMessage(p, "§7Dir wurde erfolgreich §e" + item.getItemMeta().getDisplayName() + " §7geben!");
         p.closeInventory();
     }
