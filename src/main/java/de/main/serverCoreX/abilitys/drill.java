@@ -35,8 +35,28 @@ public class drill implements Listener {
         );
         if (value == null)
             return;
-        if (!value.equalsIgnoreCase("drill"))
+        if (!value.equalsIgnoreCase("3x3_drill") && !value.equalsIgnoreCase("5x5_drill"))
             return;
+
+        int start;
+        int end;
+
+        switch (value.toLowerCase())
+        {
+            case "3x3_drill":
+                start = -1;
+                end = 1;
+                break;
+
+            case "5x5_drill":
+                start = -2;
+                end = 2;
+            default:
+                start = -1;
+                end = 1;
+                break;
+        }
+
 
         e.setCancelled(true);
         Location startLoc = e.getBlock().getLocation();
@@ -49,12 +69,12 @@ public class drill implements Listener {
         if (p.isOp())
             p.sendMessage("Yaw: " + yaw + " | Pitch: " + pitch);
 
-        if (pitch > 60)
+        if (pitch >= 60 || pitch <= -60)
         {
             // Startet bei -1 und geht auf 1
             // Währendessen geht das selbe pro durchlauf bei der Z-Achse, es wird der Block entfernt
-            for (int x = -1; x <= 1; x++)
-                for (int z =-1; z<= 1; z++)
+            for (int x = start; x <= end; x++)
+                for (int z = start; z <= end; z++)
                     startLoc.clone().add(x,0,z).getBlock().setType(Material.AIR);
 
             if (p.isOp())
@@ -64,8 +84,8 @@ public class drill implements Listener {
 
         if (yaw >= 51 && yaw <= 160 || yaw >= -160 && yaw <= -51)
         {
-            for (int z =-1; z <=1; z++)
-                for (int y =-1; y <=1; y++)
+            for (int z = start; z <= end; z++)
+                for (int y = start; y <= end; y++)
                     startLoc.clone().add(0,y,z).getBlock().setType(Material.AIR);
 
             return;
@@ -73,13 +93,9 @@ public class drill implements Listener {
 
 
         // Geht genau nur bis zu 1
-        for (int x=-1; x <=1; x++)
-            for (int y=-1; y <=1; y++)
+        for (int x= start; x <= end; x++)
+            for (int y= start; y <= end; y++)
                 startLoc.clone().add(x,y,0).getBlock().setType(Material.AIR);
-
-
-
-
 
         p.sendMessage("Drill erkannt!");
 
