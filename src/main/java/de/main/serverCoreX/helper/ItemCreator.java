@@ -51,6 +51,7 @@ public class ItemCreator {
             lore.add("§e");
 
             // Paths
+
             String raritiesPath = "rarities.";
             String errorPath = cfg.getString(raritiesPath + "error","Error while getting Config-Connection");
 
@@ -60,6 +61,7 @@ public class ItemCreator {
             // Fügt eine Seltenheits-Lore in die Lore ein
             lore.add(displayRarity + cfg.getString(raritiesPath + rarity.toLowerCase(),errorPath));
             lore.add("§7Typ §8» " + displaytType);
+
             Material material;
             try {
                 material = Material.getMaterial(materialName);
@@ -69,6 +71,13 @@ public class ItemCreator {
 
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
+
+            String nbt = cfg.getString(path + ".nbtValue",null);
+            if (nbt != null)
+            {
+                NamespacedKey nbtKey = new NamespacedKey(ServerCoreX.getPlugin(ServerCoreX.class),"custom_item");
+                meta.getPersistentDataContainer().set(nbtKey, PersistentDataType.STRING, nbt);
+            }
 
             if (hasPermission(p,"customItems.use"))
             {

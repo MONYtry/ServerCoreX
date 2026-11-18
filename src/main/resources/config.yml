@@ -33,6 +33,7 @@ items:
       - "§e3x3 §7Blöcke ab!"
     rarity: rare
     type: "§ePickaxe"
+    nbtValue: "drill"
 
   bohrerv2:
     name: "§e§lBohrerV2"
