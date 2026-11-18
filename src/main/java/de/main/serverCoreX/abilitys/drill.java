@@ -39,31 +39,43 @@ public class drill implements Listener {
             return;
 
         e.setCancelled(true);
-        Location loc = e.getBlock().getLocation();
-        Location startLoc = loc;
+        Location startLoc = e.getBlock().getLocation();
 
-        Block block = startLoc.clone().getBlock();
-        Block rightBlock = startLoc.clone().add(-1,0,0).getBlock();
-        Block leftBlock = startLoc.clone().add(1,0,0).getBlock();
+        Location loc = p.getLocation();
 
-        Block topBlock = startLoc.clone().add(0,1,0).getBlock();
-        Block bottomBlock = startLoc.clone().add(0,-1,0).getBlock();
+        float yaw = loc.getYaw();     // X Z
+        float pitch = loc.getPitch();  // Y
 
-        Block upperLeftBlock = startLoc.clone().add(1,1,0).getBlock();
-        Block bottomLeftBlock = startLoc.clone().add(1,-1,0).getBlock();
+        if (p.isOp())
+            p.sendMessage("Yaw: " + yaw + " | Pitch: " + pitch);
 
-        Block upperRightBlock = startLoc.clone().add(-1,1,0).getBlock();
-        Block bottomRightBlock = startLoc.clone().add(-1,-1,0).getBlock();
+        if (pitch > 60)
+        {
+            // Startet bei -1 und geht auf 1
+            // Währendessen geht das selbe pro durchlauf bei der Z-Achse, es wird der Block entfernt
+            for (int x = -1; x <= 1; x++)
+                for (int z =-1; z<= 1; z++)
+                    startLoc.clone().add(x,0,z).getBlock().setType(Material.AIR);
 
-        block.setType(Material.AIR);
-        rightBlock.setType(Material.AIR);
-        leftBlock.setType(Material.AIR);
-        topBlock.setType(Material.AIR);
-        bottomBlock.setType(Material.AIR);
-        upperLeftBlock.setType(Material.AIR);
-        bottomLeftBlock.setType(Material.AIR);
-        bottomRightBlock.setType(Material.AIR);
-        upperRightBlock.setType(Material.AIR);
+            if (p.isOp())
+                p.sendMessage("Nach unten mit dir!");
+            return;
+        }
+
+        if (yaw >= 51 && yaw <= 160 || yaw >= -160 && yaw <= -51)
+        {
+            for (int z =-1; z <=1; z++)
+                for (int y =-1; y <=1; y++)
+                    startLoc.clone().add(0,y,z).getBlock().setType(Material.AIR);
+
+            return;
+        }
+
+
+        // Geht genau nur bis zu 1
+        for (int x=-1; x <=1; x++)
+            for (int y=-1; y <=1; y++)
+                startLoc.clone().add(x,y,0).getBlock().setType(Material.AIR);
 
 
 
