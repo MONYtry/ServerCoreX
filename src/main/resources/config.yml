@@ -33,7 +33,7 @@ items:
       - "§e3x3 §7Blöcke ab!"
     rarity: rare
     type: "§ePickaxe"
-    nbtValue: "drill"
+    nbtValue: "3x3_drill"
 
   bohrerv2:
     name: "§e§lBohrerV2"
@@ -43,8 +43,12 @@ items:
       - ""
       - "§7Dieser Bohrer baut"
       - "§e3x3 §7Blöcke ab!"
+    description:
+      - "§eBezieht sich nur auf Steine und Erze!"
     rarity: legendary
     type: "§ePickaxe"
+    nbtValue: "5x5_drill"
+
 
 
   rakete:

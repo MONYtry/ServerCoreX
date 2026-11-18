@@ -60,6 +60,10 @@ public class ItemCreator {
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
 
+            // Speicherung des Config-Keys
+            NamespacedKey configKey = new NamespacedKey(ServerCoreX.getInstance(), "config_key");
+            meta.getPersistentDataContainer().set(configKey, PersistentDataType.STRING, key);
+
             String nbt = cfg.getString(path + ".nbtValue",null);
             if (nbt != null)
             {
@@ -70,23 +74,11 @@ public class ItemCreator {
             NamespacedKey getNbtKey = new NamespacedKey(ServerCoreX.getPlugin(ServerCoreX.class),"custom_item");
             String value = meta.getPersistentDataContainer().get(getNbtKey, PersistentDataType.STRING);
 
-            if (value != null)
+            List<String> dings = cfg.getStringList(path + ".description");
+            if (dings != null)
             {
-                switch (value.toLowerCase())
-                {
-                    case "3x3_drill":
-                        lore.add("§e");
-                        lore.add("§aFähigkeit: Zerstört 3x3 Blöcke");
-                        lore.add("§8Bezieht sich nur auf Gestein und Erze!");
-                        lore.add("§e");
-
-                        break;
-                    default:
-                        lore.add("§e");
-                        lore.add("§7Dieses Werkzeug besitzt keine extra Fähigkeit!");
-                        lore.add("§e");
-                        break;
-                }
+                for (String line : dings)
+                    lore.add(line);
             }
 
             // Paths
