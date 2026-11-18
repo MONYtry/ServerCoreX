@@ -48,8 +48,6 @@ public class ItemCreator {
                 lore = new ArrayList<>();
 
 
-
-
             Material material;
             try {
                 material = Material.getMaterial(materialName);
@@ -59,6 +57,23 @@ public class ItemCreator {
 
             ItemStack item = new ItemStack(material);
             ItemMeta meta = item.getItemMeta();
+
+            List<String> enchantments = cfg.getStringList(path + ".enchantments");
+            if (enchantments != null)
+            {
+                for (String enchant : enchantments)
+                {
+                    String[] split = enchant.split(" ");
+                    Enchantment enchantment = Enchantment.getByName(split[0]);
+                    int level = 1;
+
+                    if (split[1] != null)
+                        level = Integer.parseInt(split[1]);
+
+                    if (enchantment != null)
+                        meta.addEnchant(enchantment, level,true);
+                }
+            }
 
             // Speicherung des Config-Keys
             NamespacedKey configKey = new NamespacedKey(ServerCoreX.getInstance(), "config_key");

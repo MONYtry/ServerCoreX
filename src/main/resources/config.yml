@@ -34,6 +34,11 @@ items:
     rarity: rare
     type: "§ePickaxe"
     nbtValue: "3x3_drill"
+    description:
+      - "§e"
+      - "§8Beschreibung: Dieses Item baut 3x3 Blöcke in der Farmwelt"
+      - "§8ab jedoch bezieht sich dies nur auf Gestein und Erze!"
+      - "§e"
 
   bohrerv2:
     name: "§e§lBohrerV2"
@@ -44,10 +49,15 @@ items:
       - "§7Dieser Bohrer baut"
       - "§e3x3 §7Blöcke ab!"
     description:
-      - "§eBezieht sich nur auf Steine und Erze!"
+      - "§e"
+      - "§8Beschreibung: Dieses Item baut 3x3 Blöcke in der Farmwelt"
+      - "§8ab jedoch bezieht sich dies nur auf Gestein und Erze!"
+      - "§e"
     rarity: legendary
     type: "§ePickaxe"
     nbtValue: "5x5_drill"
+    enchantments:
+      - UNBREAKING 5
 
 
 
