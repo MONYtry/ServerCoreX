@@ -60,6 +60,7 @@ public class drill implements Listener {
             case "5x5_drill":
                 start = -2;
                 end = 2;
+                break;
             default:
                 start = -1;
                 end = 1;
@@ -83,7 +84,11 @@ public class drill implements Listener {
                 for (int z = start; z <= end; z++)
                     if (drill_whitelist.contains(startLoc.clone().add(x,0,z).getBlock().getType()))
                     {
+                        Block block = startLoc.clone().add(x, 0, z).getBlock();
+
+                        block.getDrops(itemStack).forEach(drop -> block.getWorld().dropItemNaturally(block.getLocation(), drop));
                         startLoc.clone().add(x,0,z).getBlock().setType(Material.AIR);
+
                         blockBroken = true;
                     }
 
@@ -98,8 +103,12 @@ public class drill implements Listener {
                 for (int y = start; y <= end; y++)
                     if (drill_whitelist.contains(startLoc.clone().add(0,y,z).getBlock().getType()))
                     {
+                        Block block = startLoc.clone().add(0, y, z).getBlock();
+
+                        block.getDrops(itemStack).forEach(drop -> block.getWorld().dropItemNaturally(block.getLocation(), drop));
                         startLoc.clone().add(0,y,z).getBlock().setType(Material.AIR);
-                        blockBroken =true;
+
+                        blockBroken = true;
                     }
 
             if (blockBroken)
@@ -113,8 +122,12 @@ public class drill implements Listener {
             for (int y= start; y <= end; y++)
                 if (drill_whitelist.contains(startLoc.clone().add(x,y,0).getBlock().getType()))
                 {
-                    blockBroken = true;
+                    Block block = startLoc.clone().add(x, y, 0).getBlock();
+
+                    block.getDrops(itemStack).forEach(drop -> block.getWorld().dropItemNaturally(block.getLocation(), drop));
                     startLoc.clone().add(x, y, 0).getBlock().setType(Material.AIR);
+
+                    blockBroken = true;
                 }
         if (blockBroken)
             itemStack.damage(3,p);
