@@ -51,12 +51,14 @@ public class ItemCreator {
 
             // Paths
             String raritiesPath = "rarities.";
-            String errorPath = cfg.getString(raritiesPath + ".error","Error while getting Config-Connection");
-            String displayPath = cfg.getString(raritiesPath + "display", "§7Seltenheit §8» §e");
+            String errorPath = cfg.getString(raritiesPath + "error","Error while getting Config-Connection");
+
+            String displayRarity = cfg.getString(raritiesPath + "display", "§7Seltenheit §8» §e");
+            String displaytType = cfg.getString(path + ".type","Fehler bitte Type in der Config.yml angeben!");
 
             // Fügt eine Seltenheits-Lore in die Lore ein
-            lore.add(displayPath + cfg.getString(raritiesPath + rarity.toLowerCase(),errorPath));
-
+            lore.add(displayRarity + cfg.getString(raritiesPath + rarity.toLowerCase(),errorPath));
+            lore.add("§7Typ §8» " + displaytType);
             Material material;
             try {
                 material = Material.getMaterial(materialName);

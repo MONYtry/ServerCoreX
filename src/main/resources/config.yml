@@ -23,7 +23,7 @@ rarities:
   display: "§7Seltenheit §8» §e"
 
 items:
-  test:
+  bohrer:
     name: "§eBohrer"
     material: DIAMOND_PICKAXE
     customModelName: "%texturePackName%:pickaxe/pickaxe bohrer"
@@ -32,3 +32,39 @@ items:
       - "§7Dieser Bohrer baut"
       - "§e3x3 §7Blöcke ab!"
     rarity: rare
+    type: "§ePickaxe"
+
+  bohrerv2:
+    name: "§e§lBohrerV2"
+    material: DIAMOND_PICKAXE
+    customModelName: "%texturePackName%:pickaxe/pickaxe bohrerv2"
+    lore:
+      - ""
+      - "§7Dieser Bohrer baut"
+      - "§e3x3 §7Blöcke ab!"
+    rarity: legendary
+    type: "§ePickaxe"
+
+
+  rakete:
+    name: "§4Rakete"
+    material: DIAMOND_PICKAXE
+    customModelName: "%texturePackName%:zumplatzieren/main raktete"
+    lore:
+      - ""
+      - "§7Der Weg zum"
+      - "§cGLOBALEM ERFOLG!"
+    rarity: epic
+    type: "§eBlock"
+
+
+  rubinPickaxe:
+    name: "§cRubin - Pickaxe"
+    material: DIAMOND_PICKAXE
+    customModelName: "%texturePackName%:pickaxe/pickaxe pickaxe"
+    lore:
+      - ""
+      - "§7Diese Spitzhacke"
+      - "§cverleiht §7dir den §cReichtum!"
+    rarity: mythic
+    type: "§ePickaxe"
