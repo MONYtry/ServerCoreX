@@ -1,6 +1,7 @@
     package de.main.serverCoreX;
 
     import de.main.serverCoreX.abilitys.drill;
+    import de.main.serverCoreX.abilitys.timber;
     import de.main.serverCoreX.commands.*;
     import de.main.serverCoreX.commands.broadcast.broadcast;
     import de.main.serverCoreX.commands.clear.clearCommand;
@@ -106,6 +107,7 @@
             Bukkit.getPluginManager().registerEvents(new settingsGUIListener(),this);
             Bukkit.getPluginManager().registerEvents(new customItemDBListener(),this);
             Bukkit.getPluginManager().registerEvents(new drill(),this);
+            Bukkit.getPluginManager().registerEvents(new timber(),this);
 
             getCommand("fly").setExecutor(new FlyCommand());
             getCommand("money").setExecutor(new moneyCommand());

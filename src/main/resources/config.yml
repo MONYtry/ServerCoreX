@@ -59,6 +59,25 @@ items:
     enchantments:
       - UNBREAKING 5
 
+  timber:
+    name: "§eTimber-Axt"
+    material: DIAMOND_AXE
+    lore:
+      - ""
+      - "§7Diese Axt §ezerstört §7einen"
+      - "§eBaum §7mit einem §eKlick!"
+    description:
+      - "§e"
+      - "§8Beschreibung: Diese Axt baut 1x1 Bäume"
+      - "§8ab jedoch nur in der Farmwelt"
+      - "§e"
+    rarity: legendary
+    type: "§eAxt"
+    nbtValue: "timber"
+    enchantments:
+      - UNBREAKING 5
+
+
 
 
   rakete:
