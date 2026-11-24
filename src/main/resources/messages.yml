@@ -7,3 +7,5 @@ messages:
   player_not_online: "§cDieser Spieler ist nicht Online!"
   reload_succses: "§7Erfolgreich §eNeugeladen!"
   reload_error: "§7Es ist ein §cFehler aufgetreten, §7schaue in die §eConsole §7für weitere Infos"
+  discord_URL: "https://github.com/MONYtry"
+  onlyPlayerAllowed: "Nur Spieler dürfen diesen Command nutzen!";

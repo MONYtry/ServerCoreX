@@ -24,7 +24,9 @@ public class GamemodeCommand implements CommandExecutor {
             return true;
 
         if (!(sender instanceof Player p)) {
-            sender.sendMessage("Diesen Befehl darf nur ein Spieler ausführen!");
+            FileConfiguration file = getMessages();
+
+            sender.sendMessage(file.getString("messages.onlyPlayerAllowed","Only Players are allowed to do this!"));
             return true;
         }
 

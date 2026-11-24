@@ -8,10 +8,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import static de.main.serverCoreX.helper.messages.getPrefix;
-import static de.main.serverCoreX.helper.messages.sendPlayerMessage;
+
+import static de.main.serverCoreX.helper.messages.*;
 
 
 public class discord implements CommandExecutor {
@@ -28,7 +29,9 @@ public class discord implements CommandExecutor {
         TextComponent message = new TextComponent(getPrefix() +" §7Klicke §bhier§7 um zu §bDiscord §7zu gelangen!");
 
         // Click-Event
-        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/MONYtry"));
+        FileConfiguration file = getMessages();
+
+        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, file.getString("messages.discord_URL","https://github.com/MONYtry")));
 
         // Hover-Message
         message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§eKlicke zum Annehmen!").create()));
