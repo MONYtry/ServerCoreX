@@ -34,7 +34,9 @@ public class drill implements Listener {
             return;
 
         ItemStack itemStack = p.getInventory().getItemInMainHand();
-        if (itemStack == null)
+        if (itemStack == null || itemStack.getType() == Material.AIR)
+            return;
+        if (!itemStack.hasItemMeta())
             return;
 
         ItemMeta itemMeta = itemStack.getItemMeta();
